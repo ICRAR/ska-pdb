@@ -1,12 +1,12 @@
 class Parameter < ActiveRecord::Base
-  self.per_page = 20
   
-  def self.search(page_number, filter = SearchFilter.new)
+  def self.search(page_number, page_size, filter = SearchFilter.new)
+    
     if filter.empty?
-      page(page_number)
+      paginate(:page => page_number, :per_page => page_size)
     else
       query, params = filter.build_query
-      where(query, *params).paginate(:page => page_number)
+      where(query, *params).paginate(:page => page_number, :per_page => page_size)
     end  
   end
   
