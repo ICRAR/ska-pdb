@@ -1,4 +1,8 @@
 class Parameter < ActiveRecord::Base
+  belongs_to :case
+  belongs_to :status
+  belongs_to :param_class
+  belongs_to :kind
   
   def self.search(page_number, page_size, filter = SearchFilter.new)
     

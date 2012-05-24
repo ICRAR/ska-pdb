@@ -11,15 +11,39 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021025803) do
+ActiveRecord::Schema.define(:version => 20120518015804) do
+
+  create_table "cases", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "kinds", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "param_classes", :force => true do |t|
+    t.string "name", :limit => 64
+  end
 
   create_table "parameters", :force => true do |t|
-    t.string   "description", :limit => 10000
-    t.string   "unit",        :limit => 10000
-    t.string   "source",      :limit => 10000
-    t.string   "expression",  :limit => 10000
+    t.string   "description",    :limit => 10000
+    t.string   "unit",           :limit => 10000
+    t.string   "source",         :limit => 10000
+    t.string   "expression",     :limit => 10000
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "param_class_id"
+    t.integer  "kind_id"
+    t.integer  "case_id"
+    t.integer  "status_id"
+    t.string   "value",          :limit => 1000
+    t.boolean  "basic"
+    t.boolean  "scalar"
+    t.string   "notation"
+  end
+
+  create_table "statuses", :force => true do |t|
+    t.string "name", :limit => 12
   end
 
 end
