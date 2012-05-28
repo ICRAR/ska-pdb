@@ -17,6 +17,7 @@ class ParametersController < ApplicationController
   def search
     unless request.query_string.empty?
       @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params)
+      @search_text = params['text']
 
       respond_to do |format|
         format.html { render :index }
