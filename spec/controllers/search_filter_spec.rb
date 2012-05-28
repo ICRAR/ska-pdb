@@ -3,17 +3,17 @@ require 'spec_helper'
 describe "SearchFilter" do
   describe "initialize as empty" do
     it "should be empty if created with no parameters" do
-      SearchFilter.new.empty?.should be true
+      SearchFilter.new.should be_empty
     end
 
     it "should be empty when no parameters match the search criteria" do
-      SearchFilter.initialize_from({"some_param" => "123"}).empty?.should be true
+      SearchFilter.initialize_from({"some_param" => "123"}).should be_empty
     end
   end
 
   describe "initialize from valid parameters" do
     it "should not be empty when at least one parameter matches one of the search criteria" do
-      SearchFilter.initialize_from({"text" => "123", "some_param" => "test.unit"}).empty?.should be false
+      SearchFilter.initialize_from({"text" => "123", "some_param" => "test.unit"}).should_not be_empty
     end
 
     it "should return an empty query if no search string is supplied" do

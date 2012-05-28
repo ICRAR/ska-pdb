@@ -4,8 +4,6 @@ class SearchFilter
   @@criteria_field_map = {
     "text" => "text",
   }
-
-  # words = CSV::parse_line('some words "some quoted text" some more words', :col_sep => ' ')
   
   def self.initialize_from params
     valid_criteria = params.select do |k,v|
@@ -21,10 +19,7 @@ class SearchFilter
   end
   
   def build_query
-    #where_condition = @criteria.keys.first + @criteria.keys.drop(1).inject(" LIKE ?") {|q, p| q + " AND #{p} LIKE ?"}
-    #return where_condition, @criteria.values.map{|v| "%#{v}%"}
-
-    # we only do a full text search at this time
+    # we only do a full text search over 2 columns of the db at this time
     base_search = "(description LIKE ? OR source LIKE ?)"
     search_text = @criteria['text']
     return "", [] if search_text.nil?
@@ -32,10 +27,10 @@ class SearchFilter
     words = CSV::parse_line(search_text, :col_sep => ' ').compact
     return "", [] if words.empty?
 
-    where_condition = words.drop(1).inject(base_search) {|condition, word| condition + " AND #{base_search}"}
-    values = words.inject([]) {|result, word| result << "%#{word}%" << "%#{word}%"}
+    where_condition = ([base_search] * words.size).join " AND "
+    number_of_fields_to_search = base_search.scan('LIKE').count
+    values = words.map { |w| ["%#{w}%"] * number_of_fields_to_search }.flatten
 
     return where_condition, values
   end
-  
 end
