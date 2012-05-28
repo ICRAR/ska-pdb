@@ -1,18 +1,5 @@
 %form#search
-	%fieldset
-		%legend Parameter search
-		.clearfix
-			%label{:for => 'unit'} Unit like
-			.input
-				%input{:name => 'unit', :type => 'text'}
-		.clearfix
-			%label{:for => 'source'} Source like
-			.input
-				%input{:name => 'source', :type => 'text'}
-		.clearfix
-			%label{:for => 'description'} Description like
-			.input
-				%input{:name => 'description', :type => 'text'}
-	.actions
-		%button.btn.primary{:type => 'submit'} Search
+    %label{:for => 'text'} Text
+    %input{:name => 'text', :type => 'text'}
+    %button.btn.primary{:type => 'submit'} Search
 
