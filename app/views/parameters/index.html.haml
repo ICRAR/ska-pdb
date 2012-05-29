@@ -6,8 +6,10 @@
 	%select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
 		= options_for_select ["10", "20", "50", "100"], get_page_size
 	.export
-		= link_to "Export as XML", params.merge(:format => :xml), :id => "export_xml", :target => '_blank'
-		= link_to "Export as PDF", params.merge(:format => :pdf), :id => "export_pdf", :target => '_blank'
+		= "Export as "
+		- formats = {"XML" => :xml, "PDF" => :pdf, "Java" => :java}
+		= select("export_format", "", formats.collect { |label, param| [label, url_for(params.merge(:format => param))] })
+		= button_to_function "Export", "window.open($('#export_format_').val(), '_blank')"
 #search_results
 	%table.zebra-striped
 		%thead
