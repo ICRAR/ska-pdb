@@ -9,6 +9,7 @@ class ParametersController < ApplicationController
 
     respond_to do |format|
       format.html { render :index }
+      format.java { render :index }
       format.xml { render :xml => @parameters }
       format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
     end
@@ -21,6 +22,7 @@ class ParametersController < ApplicationController
 
       respond_to do |format|
         format.html { render :index }
+        format.java { render :index }
         format.xml { render :xml => @parameters }
         format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
       end

@@ -1,0 +1,32 @@
+public class BasicParam {
+	// Define our annotation
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface ParamMetaData {
+		String source();
+		String unit();
+		String description();
+		String status();
+		boolean scalar();
+		boolean basic();
+	}
+
+
+<% @parameters.each do |parameter| %>
+    /**
+     <%=raw "* #{parameter.description}" %>
+     * <p>
+     <%=raw "* Status: \"#{parameter.status.name}\"<br/>" %>
+     <%=raw "* Unit: #{parameter.unit}<br/>" %>
+     <%=raw "* Basic : #{parameter.basic}<br/>" %>
+     <%=raw "* Scalar: #{parameter.scalar}" %>
+     */
+    @ParamMetaData (
+      <%=raw "description = \"#{parameter.description}\"," %>
+      <%=raw "source = \"#{parameter.source}\"," %>
+      <%=raw "status = \"#{parameter.status.name}\"," %>
+      <%=raw "basic = #{parameter.basic}," %>
+      <%=raw "scalar = #{parameter.scalar}," %>
+      <%=raw "unit = \"#{parameter.unit}\")" %>
+    <%=raw "public static final double #{parameter.param_class.name.upcase}_#{parameter.kind.name.upcase} = #{parameter.value}; // [#{parameter.unit}]" %>
+
+<% end %>
