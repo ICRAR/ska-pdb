@@ -14,14 +14,6 @@ describe ParametersController do
   end
 
   describe "GET search with pagination" do
-    it "should render the search form page when no query string" do
-      Parameter.stub(:search)
-      get :search
-
-      response.should render_template("search")
-      SearchFilter.should_not_receive(:new)
-    end
-
     it "should return all parameters when search criteria are empty" do
       SearchFilter.any_instance.stub(:empty?) {true}
       Parameter.stub(:search).with("test.page", "20", instance_of(SearchFilter)) {:some_params}
