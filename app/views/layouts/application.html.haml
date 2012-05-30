@@ -4,6 +4,8 @@
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tag
+    = javascript_include_tag "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+
   %body
     #header-container
       = render :partial => "layouts/header"
