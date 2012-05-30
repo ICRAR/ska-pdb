@@ -21,7 +21,7 @@
 			- @parameters.each do |p|
 				%tr.parameter
 					%td
-						= p.unit.empty? ? raw("&nbsp;") : p.unit
+						= p.unit.empty? ? raw("&nbsp;") : render_latex(p.unit)
 					%td
 						= p.source.empty? ? raw("&nbsp;") : p.source
 					%td
