@@ -14,14 +14,6 @@ describe ParametersController do
   end
 
   describe "GET search with pagination" do
-    it "should render the search form page when no query string" do
-      Parameter.stub(:search)
-      get :search
-
-      response.should render_template("search")
-      SearchFilter.should_not_receive(:new)
-    end
-
     it "should return all parameters when search criteria are empty" do
       SearchFilter.any_instance.stub(:empty?) {true}
       Parameter.stub(:search).with("test.page", "20", instance_of(SearchFilter)) {:some_params}
@@ -44,42 +36,28 @@ describe ParametersController do
       assigns(:parameters).should == :some_params
       response.should render_template("index")
     end
-    
   end
 
-  describe "xml export" do
-    it "return xml data on search" do
-      SearchFilter.any_instance.stub(:empty?) {true}
-      Parameter.stub(:search).with("test.page", 20, instance_of(SearchFilter)) {:some_params}
+  [[:xml, 'application/xml'],
+   [:pdf, 'application/pdf'],
+   [:java, 'text/plain']].each do |type, content_type|
+    describe "#{type} export" do
+      it "return #{type} data on search" do
+        SearchFilter.any_instance.stub(:empty?) {true}
 
-      get :search, {:format => :xml, :source => "", :unit => "", :description => "", :page => "test.page"}
+        parameter = double("parameter", :unit => "", :source => "", :expression => "", :description => "")
+        Parameter.stub(:search).with("test.page", 20, instance_of(SearchFilter)) {[parameter]}
 
-      response.header["Content-Type"].should include("application/xml")
-    end
+        get :search, {:format => type, :source => "", :unit => "", :description => "", :page => "test.page"}
 
-    it "return xml data on index" do
-      get :index, {:format => :xml}
+        response.header["Content-Type"].should include(content_type)
+      end
 
-      response.header["Content-Type"].should include("application/xml")
-    end
-  end
+      it "return #{type} data on index" do
+        get :index, {:format => type}
 
-  describe "pdf export" do
-    it "return pdf data on search" do
-      SearchFilter.any_instance.stub(:empty?) {true}
-
-      parameter = double("parameter", :unit => "", :source => "", :expression => "", :description => "")
-      Parameter.stub(:search).with("test.page", 20, instance_of(SearchFilter)) {[parameter]}
-
-      get :search, {:format => :pdf, :source => "", :unit => "", :description => "", :page => "test.page"}
-
-      response.header["Content-Type"].should include("application/pdf")
-    end
-
-    it "return pdf data on index" do
-      get :index, {:format => :pdf}
-
-      response.header["Content-Type"].should include("application/pdf")
+        response.header["Content-Type"].should include(content_type)
+      end
     end
   end
 end
