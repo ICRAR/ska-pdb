@@ -1,0 +1,1 @@
+$('#export-section').html('<%= escape_javascript(render(@cart)) %>');

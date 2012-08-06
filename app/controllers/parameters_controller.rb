@@ -5,6 +5,7 @@ class ParametersController < ApplicationController
   helper_method :get_page_size, :get_page_sizing_path
   
   def index
+    @cart = current_cart
     @parameters = Parameter.search params[:page], get_page_size 
 
     respond_to do |format|
@@ -17,6 +18,7 @@ class ParametersController < ApplicationController
   
   def search
     unless request.query_string.empty?
+      @cart = current_cart
       @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params)
       @search_text = params['text']
 

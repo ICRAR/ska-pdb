@@ -3,7 +3,6 @@
 	cursor: default;
 	margin: 10px;
 	padding:5px;
-	box-shadow: 0px 0px 8px #000000;
 	a, span, em {
 		padding: 0.2em 0.5em;
 		display: block;
@@ -11,28 +10,27 @@
 		margin-right: 1px;
 	}
 	.disabled {
-		color: #999999;
-		border: 1px solid #dddddd;
+		color: rgba(255,255,255,0.4);
+		border: 1px solid rgba(255,255,255,0.4);
 	}
 	.current {
 		font-style: normal;
 		font-weight: bold;
-		background: #000000;
-		color: #fff;
-		border: 1px solid #000000;
+		background: white;
+		color: black;
+		border: 1px solid white;
 	}
 	a {
 		text-decoration: none;
-		color: #000000;
-		border: 1px solid #000000;
+		color: white;
+		border: 1px solid white;
 		&:hover, &:focus {
-		  color: #000033;
-		  border-color: #000033;
+          background-color: rgba(255,255,255,0.4)
 		}
 	}
 	.page_info {
 //		background: #000000;
-		color: #000;
+		color: white;
 		padding: 0.4em 0.6em;
 		width: 22em;
 		margin-bottom: 0.3em;

@@ -1,30 +1,42 @@
-.digg_pagination
-	.page_info 
-		= page_entries_info @parameters
-	= will_paginate @parameters, :container => true
-	%label Page size:
-	%select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
-		= options_for_select ["10", "20", "50", "100"], get_page_size
-	.export
-		= "Export as "
-		- formats = {"XML" => :xml, "PDF" => :pdf, "Java" => :java}
-		= select("export_format", "", formats.collect { |label, param| [label, url_for(params.merge(:format => param))] })
-		= button_to_function "Export", "window.open($('#export_format_').val(), '_blank')"
-#search_results
-	%table.zebra-striped
-		%thead
-			%th Unit
-			%th Source
-			%th Expression
-			%th Description	
-		%tbody
-			- @parameters.each do |p|
-				%tr.parameter
-					%td
-						= p.unit.empty? ? raw("&nbsp;") : render_latex(p.unit)
-					%td
-						= p.source.empty? ? raw("&nbsp;") : p.source
-					%td
-						= p.expression.empty? ? raw("&nbsp;") : p.expression
-					%td
-						= p.description
+.page-content
+  #export-section
+    = render @cart
+
+  #search_results
+    .table-pagination-before
+      .page_info
+        = page_entries_info @parameters
+      .digg_pagination
+        = will_paginate @parameters, :container => true
+
+      %label{ :style => 'display: none;', :for => 'page_size'} Page Size
+      %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
+        = options_for_select ["10", "20", "50", "100"], get_page_size
+
+    %table
+      %thead
+        %th Unit
+        %th Source
+        %th Expression
+        %th Description
+        %th
+      %tbody
+        - @parameters.each do |p|
+          %tr.parameter
+            %td
+              = p.unit.empty? ? raw("&nbsp;") : render_latex(p.unit)
+            %td
+              = p.source.empty? ? raw("&nbsp;") : p.source
+            %td
+              = p.expression.empty? ? raw("&nbsp;") : p.expression
+            %td
+              = p.description
+            %td
+              = button_to 'Add', line_items_path(:parameter_id => p.id), :remote => true
+
+    .table-pagination-after
+      .page_info
+        = page_entries_info @parameters
+      .digg_pagination
+        = will_paginate @parameters, :container => true
+      %div{:style => 'clear:both;'}

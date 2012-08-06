@@ -1,16 +1,7 @@
-.topbar
-	%ul
-		%li
-			= image_tag('icrar_logo_black_small.jpg')
-		%li
-			%a{:href=>"#{root_path}"} SKA PDB
+.header
+  .header-left
+    = image_tag('icrar_logo_black_small.jpg')
+  .header-right
 
-		= render :partial => "layouts/search"
-
-		#flash.span5
-			- flash.each do |key, msg|
-				%p{:class => "#{key} flash"}
-				= msg
-			.clear
-
-%div.top-space
+    %h1 SKA PDB
+    = render :partial => "layouts/search"
