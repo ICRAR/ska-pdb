@@ -1,1 +1,1 @@
-$('#export-section').html('<%= escape_javascript(render(@cart)) %>');
+$('.selected-parameters').html('<%= escape_javascript(render(@cart)) %>');

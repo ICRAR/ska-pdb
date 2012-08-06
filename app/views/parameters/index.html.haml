@@ -1,6 +1,14 @@
 .page-content
-  #export-section
-    = render @cart
+  .export-section
+    %h2 Export selected
+    .selected-parameters
+      = render @cart
+
+    .export-as
+      Format:
+      - formats = {"XML" => :xml, "PDF" => :pdf, "Java" => :java}
+      = select("export_format", "", formats.collect { |label, param| [label, url_for(params.merge(:format => param, :export => true))] })
+    = button_to_function "Export", "window.open($('#export_format_').val(), '_blank')", { :class => 'export-button'}
 
   #search_results
     .table-pagination-before

@@ -209,7 +209,7 @@ table
 
 
 
-#export-section
+.export-section
 {
   float: right;
   background: #961924;
@@ -263,4 +263,22 @@ table
   font-size: 13px;
   margin: 10px;
   margin-bottom:0;
+}
+
+.remove-item
+{
+  position: relative;
+  left: -15px;
+  top: -2px;
+  font-weight: bold;
+  line-height: 14px;
+  font-size: 14px;
+  border: none;
+  color: white;
+  background: #C00;
+  height: 16px;
+  width: 16px;
+  border-radius: 18px;
+  padding: 0 0 2px 0;
+  margin-right: -20px;
 }
