@@ -1,5 +1,5 @@
 .search
   = form_tag search_parameters_path, :method => :get do
     = text_field_tag 'text', @search_text, { :placeholder => 'Search...' }
-    %button.search-reset.reset-action &#215;
-    %button.search-submit{:type => 'submit'} Search
+    %input.search-reset.reset-action{:type => 'button', :value => "\u00d7" }
+    %input.search-submit{:type => 'submit'}
