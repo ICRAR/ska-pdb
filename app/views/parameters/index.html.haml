@@ -23,6 +23,7 @@
 
     %table
       %thead
+        %th Name
         %th Unit
         %th Source
         %th Expression
@@ -31,6 +32,8 @@
       %tbody
         - @parameters.each do |p|
           %tr.parameter
+            %td
+              = parameter_name(p)
             %td
               = p.unit.empty? ? raw("&nbsp;") : render_latex(p.unit)
             %td
