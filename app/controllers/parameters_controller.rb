@@ -26,6 +26,10 @@ class ParametersController < ApplicationController
       @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params)
       @search_text = params['text']
 
+      if params[:export]
+        @parameters = @cart.line_items.map {|item| item.parameter}
+      end
+
       respond_to do |format|
         format.html { render :index }
         format.java { render :index }
