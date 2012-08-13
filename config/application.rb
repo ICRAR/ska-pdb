@@ -47,5 +47,8 @@ module Gaia
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # Makes Devise happy
+    config.assets.initialize_on_precompile = false
   end
 end

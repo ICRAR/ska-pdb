@@ -9,6 +9,9 @@
   %body
     #header-container
       = render :partial => "layouts/header"
-    
+
+    %p{:class => 'notice'}= notice
+    %p{:class => 'alert'}= alert
+
     #body-container
       = yield
