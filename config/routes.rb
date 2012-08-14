@@ -1,4 +1,9 @@
 Gaia::Application.routes.draw do
+
+  devise_for :user, :path_prefix => 'my'
+
+  resources :accounts
+
   resources :line_items
 
   resources :carts

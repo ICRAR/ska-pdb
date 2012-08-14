@@ -1,0 +1,20 @@
+%h1 Users
+
+= link_to "All Users", :action => "index"
+
+%table
+  %thead
+    %tr
+      %th Username
+      %th Name
+      %th Email
+      %th Administrator
+      %th
+  %tbody
+    - @users.each do |user|
+      %tr{:onclick =>"location.href='#{edit_account_path(user)}'"}
+        %td= user.username
+        %td= user.name
+        %td= user.email
+        %td= user.admin?
+        %td= link_to "Edit", edit_account_path(user)
