@@ -1,6 +1,6 @@
 %h1 Users
 
-= link_to "All Users", :action => "index"
+= link_to "Create new user", :action => "new"
 
 %table
   %thead
@@ -16,5 +16,7 @@
         %td= user.username
         %td= user.name
         %td= user.email
-        %td= user.admin?
+        %td
+          - if user.admin?
+            Yes
         %td= link_to "Edit", edit_account_path(user)

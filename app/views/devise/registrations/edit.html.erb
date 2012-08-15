@@ -3,6 +3,9 @@
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
 
+  <div><%= label_tag :username %><br />
+  <%= label_tag resource.username %></div>
+
   <div><%= f.label :name %><br />
   <%= f.text_field :name %></div>
 
@@ -20,9 +23,5 @@
 
   <div><%= f.submit "Update" %></div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
 
 <%= link_to "Back", :back %>

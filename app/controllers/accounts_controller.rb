@@ -1,12 +1,9 @@
 class AccountsController < ApplicationController
 
   before_filter :authenticate_user!
+
   before_filter do
     redirect_to root_path unless current_user && current_user.admin?
-  end
-
-  def create
-    super
   end
 
   def edit
@@ -31,5 +28,19 @@ class AccountsController < ApplicationController
 
   def index
     @users = User.all
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def create
+    @user = User.new(params[:user])
+    if @user.save
+      flash[:notice] = "Successfully created User."
+      redirect_to accounts_path
+    else
+      render :action => 'new'
+    end
   end
 end
