@@ -1,29 +1,38 @@
-%h2
-  Edit
-  = @user.email
-= form_for(@user, :url => account_path(@user.id)) do |f|
+%div.center
+  %div.dialog-form-wide
+    %h2 Edit Profile
+    = form_for(@user, :url => account_path(@user.id)) do |f|
 
-  %div
-    = f.label :username
-    = f.text_field :username, :editable => @user.admin?
+      %div
+        = f.label :username
+        = f.text_field :username, :editable => @user.admin?
 
-  %div
-    = f.label :name
-    = f.text_field :name
+      %div
+        = f.label :name
+        = f.text_field :name
 
-  %div
-    = f.label :email
-    = f.email_field :email
+      %div
+        = f.label :email
+        = f.email_field :email
 
-  %div
-    = f.label :password
-    = f.password_field :password
-    %em (leave blank if you don't want to change it)
+      %br
 
-  %div
-    = f.label :admin
-    = f.check_box :admin
+      %div
+        = f.label :password
+        = f.password_field :password
+      .center
+        %i{:style=>'font-size: small; color:#999'} (leave blank if you don't want to change it)
 
-  %div
-    = f.submit "Update"
-    = link_to "Cancel", :action => 'index'
+      %br
+
+      %div
+        = f.label :admin
+        - if @user != current_user
+          = f.check_box :admin
+        - else
+          = f.check_box :admin, { :disabled => 'disabled' }
+
+      %br
+
+      %div.center
+        = f.submit "Update"
