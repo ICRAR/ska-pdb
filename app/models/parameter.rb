@@ -5,14 +5,16 @@ class Parameter < ActiveRecord::Base
   belongs_to :kind
   has_many :line_items
   
-  def self.search(page_number, page_size, filter = SearchFilter.new)
-    
+  def self.search(page_number, page_size, filter = SearchFilter.new, signed_in)
+    filter_statement = where("")
+    filter_statement = where("protected is null or protected != ?", true) unless signed_in
+
     if filter.empty?
-      paginate(:page => page_number, :per_page => page_size)
+      filter_statement.paginate(:page => page_number, :per_page => page_size)
     else
       query, params = filter.build_query
-      where(query, *params).paginate(:page => page_number, :per_page => page_size)
-    end  
+      filter_statement.where(query, *params).paginate(:page => page_number, :per_page => page_size)
+    end
   end
   
 end

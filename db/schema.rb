@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815074134) do
+ActiveRecord::Schema.define(:version => 20120816031702) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120815074134) do
     t.boolean  "basic"
     t.boolean  "scalar"
     t.string   "notation"
+    t.boolean  "protected"
   end
 
   create_table "statuses", :force => true do |t|

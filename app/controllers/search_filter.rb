@@ -20,7 +20,7 @@ class SearchFilter
   
   def build_query
     # we only do a full text search over 2 columns of the db at this time
-    base_search = "(description LIKE ? OR source LIKE ?)"
+    base_search = "(lower(description) LIKE lower(?) OR lower(source) LIKE lower(?))"
     search_text = @criteria['text']
     return "", [] if search_text.nil?
 

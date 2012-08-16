@@ -6,7 +6,7 @@ class ParametersController < ApplicationController
   
   def index
     @cart = current_cart
-    @parameters = Parameter.search params[:page], get_page_size
+    @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
 
     if params[:export]
       @parameters = @cart.line_items.map {|item| item.parameter}
@@ -23,7 +23,7 @@ class ParametersController < ApplicationController
   def search
     unless request.query_string.empty?
       @cart = current_cart
-      @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params)
+      @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
       @search_text = params['text']
 
       if params[:export]
