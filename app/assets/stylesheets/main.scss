@@ -355,12 +355,13 @@ table
   border-radius:4px;
   box-shadow: 0 0 12px rgba(0,0,0, 0.4);
   text-align: center;
+  color: white;
 }
 
 .notice
 {
-  border:1px solid #3A3;
-  background-color: #9F9;
+  border:1px solid #16857C;
+  background-color: #22C9BB;
 }
 
 .alert
@@ -415,6 +416,21 @@ table
 .dialog-form-wide input[type='password'],
 {
   font-size: large;
+}
+
+.field_with_errors
+{
+  display: inline-block;
+}
+
+.errors
+{
+  color: red;
+}
+
+.field_with_errors input
+{
+  border: 1px solid red;
 }
 
 .center
