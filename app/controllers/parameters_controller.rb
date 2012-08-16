@@ -38,6 +38,10 @@ class ParametersController < ApplicationController
       end
     end
   end
+
+  def edit
+    @parameter = Parameter.find(params[:id])
+  end
   
   private
   
