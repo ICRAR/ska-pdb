@@ -31,7 +31,7 @@
         %th
       %tbody
         - @parameters.each do |p|
-          %tr.parameter{:onclick =>"location.href='#{edit_parameter_path(p)}'"}
+          %tr.parameter{:onclick =>"location.href='#{current_user && current_user.admin? ? edit_parameter_path(p) : "javascript: void(0)"}'"}
             %td
               = parameter_name(p)
             %td

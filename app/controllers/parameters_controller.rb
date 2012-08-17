@@ -1,9 +1,12 @@
 require 'pdf_generator'
 
 class ParametersController < ApplicationController
+  before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
   
   helper_method :get_page_size, :get_page_sizing_path
-  
+
+
+
   def index
     @cart = current_cart
     @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
@@ -42,8 +45,24 @@ class ParametersController < ApplicationController
   def edit
     @parameter = Parameter.find(params[:id])
   end
+
+  def update
+    @parameter = Parameter.find(params[:id])
+    @parameter.update_attributes(params[:parameter])
+
+    if @parameter.save
+      flash[:notice] = "Parameter updated"
+    else
+      flash[:alert] = @parameter.errors.empty? ? "Unknown error: unable to save parameter" : @parameter.errors.full_messages.to_sentence
+    end
+    redirect_to :action => 'edit'
+  end
   
   private
+
+  def redirect_to_root_unless_admin
+    redirect_to root_path unless current_user && current_user.admin?
+  end
   
   def get_page_size
     params[:page_size] ||= 20
