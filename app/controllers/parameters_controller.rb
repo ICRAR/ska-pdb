@@ -5,44 +5,37 @@ class ParametersController < ApplicationController
   
   helper_method :get_page_size, :get_page_sizing_path
 
-
-
   def index
     @cart = current_cart
     @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
 
-    if params[:export]
-      @parameters = @cart.line_items.map {|item| item.parameter}
-    end
+    render :index
+  end
+  
+  def search
+    @cart = current_cart
+    @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
+    @search_text = params['text']
+
+    render :index
+  end
+
+  def export
+    @cart = current_cart
+    @parameters = @cart.line_items.map {|item| item.parameter}
 
     respond_to do |format|
-      format.html { render :index }
       format.java { render :index }
       format.xml { render :xml => @parameters }
       format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
     end
   end
-  
-  def search
-    unless request.query_string.empty?
-      @cart = current_cart
-      @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
-      @search_text = params['text']
-
-      if params[:export]
-        @parameters = @cart.line_items.map {|item| item.parameter}
-      end
-
-      respond_to do |format|
-        format.html { render :index }
-        format.java { render :index }
-        format.xml { render :xml => @parameters }
-        format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
-      end
-    end
-  end
 
   def edit
+    @parameter = Parameter.find(params[:id])
+  end
+
+  def show
     @parameter = Parameter.find(params[:id])
   end
 

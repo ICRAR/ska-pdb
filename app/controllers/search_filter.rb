@@ -18,7 +18,7 @@ class SearchFilter
     @criteria.nil? or @criteria.empty?
   end
   
-  def build_query
+  def build_search
     # we only do a full text search over 2 columns of the db at this time
     base_search = "(lower(description) LIKE lower(?) OR lower(source) LIKE lower(?))"
     search_text = @criteria['text']
@@ -32,5 +32,12 @@ class SearchFilter
     values = words.map { |w| ["%#{w}%"] * number_of_fields_to_search }.flatten
 
     return where_condition, values
+  end
+
+  def build_query
+    return Parameter.where('') if empty?
+
+    query, params = build_search
+    Parameter.where(query, *params)
   end
 end

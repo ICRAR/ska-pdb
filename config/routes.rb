@@ -14,5 +14,7 @@ Gaia::Application.routes.draw do
       get 'search'
     end
   end
+
+  get '/export' => 'parameters#export'
     
 end
