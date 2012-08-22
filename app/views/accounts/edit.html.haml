@@ -1,0 +1,5 @@
+%div.center
+  %div.dialog-form-wide
+    %h2 Edit Profile
+    = form_for(@user, :url => account_path(@user.id)) do |f|
+      = render :partial => 'account', :locals => {:edit => true, :f => f}

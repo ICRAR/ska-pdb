@@ -1,35 +1,61 @@
 require 'pdf_generator'
 
 class ParametersController < ApplicationController
+  before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
   
   helper_method :get_page_size, :get_page_sizing_path
-  
+
   def index
-    @parameters = Parameter.search params[:page], get_page_size 
+    @cart = current_cart
+    @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
+
+    render :index
+  end
+  
+  def search
+    @cart = current_cart
+    @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
+    @search_text = params['text']
+
+    render :index
+  end
+
+  def export
+    @cart = current_cart
+    @parameters = @cart.line_items.map {|item| item.parameter}
 
     respond_to do |format|
-      format.html { render :index }
       format.java { render :index }
       format.xml { render :xml => @parameters }
       format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
     end
   end
-  
-  def search
-    unless request.query_string.empty?
-      @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params)
-      @search_text = params['text']
 
-      respond_to do |format|
-        format.html { render :index }
-        format.java { render :index }
-        format.xml { render :xml => @parameters }
-        format.pdf { render :text => PdfGenerator.new.create_pdf(@parameters) }
-      end
+  def edit
+    @parameter = Parameter.find(params[:id])
+  end
+
+  def show
+    @parameter = Parameter.find(params[:id])
+  end
+
+  def update
+    @parameter = Parameter.find(params[:id])
+    @parameter.update_attributes(params[:parameter])
+
+    if @parameter.save
+      flash[:notice] = "Parameter updated"
+    else
+      flash[:alert] = @parameter.errors.empty? ? "Unknown error: unable to save parameter" : @parameter.errors.full_messages.to_sentence
     end
+    redirect_to :action => 'edit'
   end
   
   private
+
+  def redirect_to_root_unless_admin
+    redirect_to root_path unless current_user && current_user.admin?
+  end
   
   def get_page_size
     params[:page_size] ||= 20

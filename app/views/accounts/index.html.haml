@@ -1,0 +1,22 @@
+.page-content
+  #accounts.content-table
+    %div{:style => 'text-align:right'}
+      = link_to "Create account", new_account_path, :class => 'pdb-button'
+    %table
+      %thead
+        %tr
+          %th Username
+          %th Name
+          %th Email
+          %th Administrator
+          %th
+      %tbody
+        - @users.each do |user|
+          %tr{:onclick =>"location.href='#{edit_account_path(user)}'"}
+            %td= user.username
+            %td= user.name
+            %td= user.email
+            %td
+              - if user.admin?
+                Yes
+            %td= link_to "Edit", edit_account_path(user)

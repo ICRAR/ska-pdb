@@ -1,0 +1,9 @@
+%div.center
+  %div.dialog-form-wide
+    %h2 New Account
+    - if @user.errors.any?
+      %ul.errors
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+    = form_for(@user, :url => {:action => "create"}) do |f|
+      = render :partial => 'account', :locals => {:edit => false, :f => f}

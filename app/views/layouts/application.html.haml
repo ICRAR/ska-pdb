@@ -1,6 +1,6 @@
 %html
   %head
-    %title= content_for?(:title) ? "GAIA Parameter Database - #{yield :title}" : "GAIA Parameter Database"
+    %title= content_for?(:title) ? "SKA Parameter Database - #{yield :title}" : "SKA Parameter Database"
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tag
@@ -9,6 +9,11 @@
   %body
     #header-container
       = render :partial => "layouts/header"
-    
+
+    - unless notice.nil?
+      %p{:class => 'notice'}= notice
+    - unless alert.nil?
+      %p{:class => 'alert'}= alert
+
     #body-container
       = yield

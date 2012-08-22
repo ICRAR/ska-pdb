@@ -1,0 +1,45 @@
+.page-content
+  .parameter-detail
+    %h2= parameter_name(@parameter)
+
+    %div
+      = label_tag :status
+      = label_tag @parameter.status.name
+
+    %div
+      = label_tag :protected
+      = check_box_tag :protected, '', @parameter.protected, :disabled => true
+
+    %br
+
+    %div
+      = label_tag :case
+      = label_tag @parameter.case.name
+
+    %div
+      = label_tag :kind
+      = label_tag @parameter.kind.name
+
+    %div
+      = label_tag :param_class
+      = label_tag @parameter.param_class.name
+
+    %br
+
+    %div
+      = label_tag :unit
+      = label_tag @parameter.unit
+
+    %div
+      = label_tag :expression
+      = label_tag @parameter.expression
+
+    %div
+      = label_tag :source
+      %div
+        = @parameter.source
+
+    %div
+      = label_tag :description
+      %div
+        = @parameter.description

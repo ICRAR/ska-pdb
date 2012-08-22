@@ -1,0 +1,1 @@
+$('.selected-parameters').html('<%= escape_javascript(render(@cart)) %>');

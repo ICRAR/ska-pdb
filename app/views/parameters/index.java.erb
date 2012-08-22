@@ -27,6 +27,6 @@ public class BasicParam {
       <%=raw "basic = #{parameter.basic}," %>
       <%=raw "scalar = #{parameter.scalar}," %>
       <%=raw "unit = \"#{parameter.unit}\")" %>
-    <%=raw "public static final double #{parameter.param_class.name.upcase}_#{parameter.kind.name.upcase} = #{parameter.value}; // [#{parameter.unit}]" %>
+    <%=raw "public static final double #{parameter_name(parameter).upcase} = #{parameter.value}; // [#{parameter.unit}]" %>
 
 <% end %>

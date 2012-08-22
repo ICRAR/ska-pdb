@@ -5,8 +5,9 @@ gem 'will_paginate', '~> 3.0.2'
 
 gem 'haml'
 gem 'jquery-rails'
-gem "therubyracer", :require => 'v8'
-gem "prawn"
+gem 'therubyracer', :require => 'v8'
+gem 'prawn'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.

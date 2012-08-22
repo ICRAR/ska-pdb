@@ -7,7 +7,7 @@ describe "PdfGenerator" do
   it "returns a string representation of a pdf" do
     parameter = double("parameter", :unit => "a", :source => "b", :expression => "c", :description => "d")
 
-    generator.create_pdf([parameter]).starts_with?("%PDF").should == true
+    generator.create_pdf([parameter]).start_with?("%PDF").should == true
   end
 
   it "returns data as array with a header" do

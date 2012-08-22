@@ -1,0 +1,18 @@
+.navigation
+  - if user_signed_in?
+    .signed_in
+      Signed in as
+      %b= current_user.username
+  %ul
+    - unless user_signed_in?
+      %li
+        = link_to('Sign in', new_user_session_path)
+    - if user_signed_in?
+      %li
+        = link_to('Edit Profile', edit_user_registration_path)
+    - if user_signed_in? and current_user.admin?
+      %li
+        = link_to('Manage Accounts', accounts_path)
+    - if user_signed_in?
+      %li
+        = link_to('Sign out', destroy_user_session_path, :method=>'delete')
