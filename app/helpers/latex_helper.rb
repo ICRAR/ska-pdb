@@ -4,13 +4,11 @@ module LatexHelper
     text.gsub!(' ', '\\:')
     "\\(#{text}\\)"
   end
-
-  def format_text desc
-    #desc.gsub!(/(\bhttps?:\/\/\S+\b)/, '<a target="_blank" href="\1"><img src="/assets/open_in_new_window.jpg"></a>')
-    #desc.gsub!(/\\\\([^\s]+)/, '\\(\\\\\1\\)')
-    desc
-  end
 end
+
+#desc.gsub!(/\\\\([^\s]+)/, '\\(\\\\\1\\)')
+
+#research in how to get formulas in descriptions to be rendered in LaTeX
 
 #r_equ
 #r_gal

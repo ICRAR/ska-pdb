@@ -11,6 +11,14 @@ describe "SearchFilter" do
     end
   end
 
+  describe "construct base search" do
+    it "should return correct search sql" do
+      sf = SearchFilter.initialize_from({"text" => ''})
+
+      sf.construct_base_search(['description', 'source']).should == "(lower(description) LIKE lower(?) OR lower(source) LIKE lower(?))"
+    end
+  end
+
   describe "initialize from valid parameters" do
     it "should not be empty when at least one parameter matches one of the search criteria" do
       SearchFilter.initialize_from({"text" => "123", "some_param" => "test.unit"}).should_not be_empty
@@ -19,33 +27,20 @@ describe "SearchFilter" do
     it "should return an empty query if no search string is supplied" do
       sc = SearchFilter.initialize_from({"text" => ''})
 
-      where, params = sc.build_query
-      where.should be == ""
-      params.should == []
+      sc.build_query.should == Parameter.where('')
     end
 
     it "should return an empty query if just spaces are supplied as search string" do
       sc = SearchFilter.initialize_from({"text" => '   '})
 
-      where, params = sc.build_query
-      where.should be == ""
-      params.should == []
+      sc.build_query.should == Parameter.where('')
     end
 
     it "should build a query from one search text word" do
       sc = SearchFilter.initialize_from({"text" => "matrix"})
 
-      where, params = sc.build_query
-      where.should be == "(description LIKE ? OR source LIKE ?)"
-      params.should == ["%matrix%", "%matrix%"]
-    end
-
-    it "should build a query from multiple search words respecting quotes" do
-      sc = SearchFilter.initialize_from({"text" => 'matrix "light speed"'})
-
-      where, params = sc.build_query
-      where.should be == "(description LIKE ? OR source LIKE ?) AND (description LIKE ? OR source LIKE ?)"
-      params.should == ["%matrix%", "%matrix%", "%light speed%", "%light speed%"]
+      sql = sc.build_query.to_sql
+      sql.should == "SELECT \"parameters\".* FROM \"parameters\"  WHERE ((lower(description) LIKE lower('%matrix%') OR lower(source) LIKE lower('%matrix%') OR lower(unit) LIKE lower('%matrix%')))"
     end
   end
 end
