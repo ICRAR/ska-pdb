@@ -3,6 +3,7 @@ class Parameter < ActiveRecord::Base
   belongs_to :status
   belongs_to :param_class
   belongs_to :kind
+  belongs_to :direction
   has_many :line_items
   
   def self.search(page_number, page_size, search_filter = SearchFilter.new, signed_in)

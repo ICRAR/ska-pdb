@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120816031702) do
+ActiveRecord::Schema.define(:version => 20120823065221) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -19,6 +19,10 @@ ActiveRecord::Schema.define(:version => 20120816031702) do
   end
 
   create_table "cases", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "directions", :force => true do |t|
     t.string "name", :limit => 64
   end
 
@@ -53,6 +57,8 @@ ActiveRecord::Schema.define(:version => 20120816031702) do
     t.boolean  "scalar"
     t.string   "notation"
     t.boolean  "protected"
+    t.string   "category"
+    t.integer  "direction_id"
   end
 
   create_table "statuses", :force => true do |t|
