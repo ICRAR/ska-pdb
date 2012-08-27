@@ -3,6 +3,11 @@ insert into STATUSES values (   0, NULL);
 insert into STATUSES values (   1,'CONF');
 insert into STATUSES values (   2,'TBC');
 
+delete from DIRECTIONS;
+insert into DIRECTIONS values (0, NULL);
+insert into DIRECTIONS values (1, 'AL');
+insert into DIRECTIONS values (2, 'AC');
+
 delete from CASES;
 insert into CASES values (   0, NULL);
 insert into CASES values (   1,'Nu');

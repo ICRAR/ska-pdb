@@ -1,3 +1,6 @@
+class Parameter < ActiveRecord::Base
+end
+
 class AddCategoryToParameter < ActiveRecord::Migration
   def up
     add_column :parameters, :category, :string

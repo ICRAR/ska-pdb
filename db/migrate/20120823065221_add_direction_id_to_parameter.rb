@@ -1,3 +1,6 @@
+class Parameter < ActiveRecord::Base
+end
+
 class AddDirectionIdToParameter < ActiveRecord::Migration
   def up
     add_column :parameters, :direction_id, :integer

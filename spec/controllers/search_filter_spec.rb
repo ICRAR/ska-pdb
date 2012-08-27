@@ -27,13 +27,13 @@ describe "SearchFilter" do
     it "should return an empty query if no search string is supplied" do
       sc = SearchFilter.initialize_from({"text" => ''})
 
-      sc.build_query.should == Parameter.where('')
+      sc.build_query.should == ParameterDetail.where('')
     end
 
     it "should return an empty query if just spaces are supplied as search string" do
       sc = SearchFilter.initialize_from({"text" => '   '})
 
-      sc.build_query.should == Parameter.where('')
+      sc.build_query.should == ParameterDetail.where('')
     end
 
     it "should build a query from one search text word" do

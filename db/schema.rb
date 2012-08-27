@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823065221) do
+ActiveRecord::Schema.define(:version => 20120827061135) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20120823065221) do
     t.string "name", :limit => 64
   end
 
-  create_table "parameters", :force => true do |t|
+  create_table "parameter_details", :force => true do |t|
     t.string   "description",    :limit => 10000
     t.string   "unit",           :limit => 10000
     t.string   "source",         :limit => 10000
@@ -56,9 +56,18 @@ ActiveRecord::Schema.define(:version => 20120823065221) do
     t.boolean  "basic"
     t.boolean  "scalar"
     t.string   "notation"
-    t.boolean  "protected"
     t.string   "category"
     t.integer  "direction_id"
+    t.integer  "parameter_id"
+  end
+
+  create_table "parameters", :force => true do |t|
+    t.string   "name"
+    t.integer  "parameter_detail_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "protected"
+    t.string   "search_text",         :limit => 100000
   end
 
   create_table "statuses", :force => true do |t|

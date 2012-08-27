@@ -7,7 +7,7 @@ describe ParametersController do
     
   describe "GET index" do
     it "should return all parameters" do
-      Parameter.stub(:search).with("test.page", 20, false) {:some_params}
+      ParameterDetail.stub(:search).with("test.page", 20, false) {:some_params}
 
       get :index, {:page => "test.page"}
 
@@ -19,7 +19,7 @@ describe ParametersController do
   describe "GET search with pagination" do
     it "should return all parameters when search criteria are empty" do
       SearchFilter.any_instance.stub(:empty?) {true}
-      Parameter.stub(:search).with("test.page", "20", instance_of(SearchFilter), false) {:some_params}
+      ParameterDetail.stub(:search).with("test.page", "20", instance_of(SearchFilter), false) {:some_params}
 
       get :search, {:source => "", :unit => "", :description => "", :page => "test.page", :page_size => 20}
 
@@ -32,7 +32,7 @@ describe ParametersController do
       SearchFilter.stub(:initialize_from)
                   .with(hash_including({"unit" => "test.unit", "description" => "test.description"}))
                   .and_return(mock_filter)
-      Parameter.stub(:search).with("test.page", 20, mock_filter, false) {:some_params}
+      ParameterDetail.stub(:search).with("test.page", 20, mock_filter, false) {:some_params}
 
       get :search, {:page => "test.page", :unit => "test.unit", :description => "test.description"}
 
@@ -49,7 +49,7 @@ describe ParametersController do
         SearchFilter.any_instance.stub(:empty?) {true}
 
         parameter = double("parameter", :unit => "", :source => "", :expression => "", :description => "")
-        Parameter.stub(:search).with("test.page", 20, instance_of(SearchFilter), false) {[parameter]}
+        ParameterDetail.stub(:search).with("test.page", 20, instance_of(SearchFilter), false) {[parameter]}
 
         get :export, {:format => type, :source => "", :unit => "", :description => "", :page => "test.page"}
 

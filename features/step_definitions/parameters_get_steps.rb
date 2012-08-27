@@ -1,6 +1,6 @@
 Given /^there are (\d+) parameters$/ do |number|
   number.to_i.times do |index|
-    Parameter.create(description: "description #{index}", unit: "unit #{index}", source: "source #{index}", expression: "expression #{index}")
+    ParameterDetail.create(description: "description #{index}", unit: "unit #{index}", source: "source #{index}", expression: "expression #{index}")
   end
 end
 

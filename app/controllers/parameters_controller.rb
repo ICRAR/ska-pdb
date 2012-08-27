@@ -7,14 +7,15 @@ class ParametersController < ApplicationController
 
   def index
     @cart = current_cart
-    @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
+    @parameters = Parameter.paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
+    @parameters = Parameter.public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
 
     render :index
   end
   
   def search
     @cart = current_cart
-    @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
+    @parameters = ParameterDetail.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
     @search_text = params['text']
 
     render :index
@@ -32,15 +33,15 @@ class ParametersController < ApplicationController
   end
 
   def edit
-    @parameter = Parameter.find(params[:id])
+    @parameter = ParameterDetail.find(params[:id])
   end
 
   def show
-    @parameter = Parameter.find(params[:id])
+    @parameter = ParameterDetail.find(params[:id])
   end
 
   def update
-    @parameter = Parameter.find(params[:id])
+    @parameter = ParameterDetail.find(params[:id])
     @parameter.update_attributes(params[:parameter])
 
     if @parameter.save
