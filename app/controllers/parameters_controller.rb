@@ -36,15 +36,15 @@ class ParametersController < ApplicationController
   end
 
   def edit
-    @parameter = ParameterDetail.find(params[:id])
+    @parameter = Parameter.find(params[:id])
   end
 
   def show
-    @parameter = ParameterDetail.find(params[:id])
+    @parameter = Parameter.find(params[:id])
   end
 
   def update
-    @parameter = ParameterDetail.find(params[:id])
+    @parameter = Parameter.find(params[:id])
     @parameter.update_attributes(params[:parameter])
 
     if @parameter.save

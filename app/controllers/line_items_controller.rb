@@ -1,7 +1,7 @@
 class LineItemsController < ApplicationController
   def create
     @cart = current_cart
-    parameter = ParameterDetail.find(params[:parameter_id])
+    parameter = Parameter.find(params[:parameter_id])
     @line_item = @cart.add_parameter(parameter.id)
 
     respond_to do |format|
