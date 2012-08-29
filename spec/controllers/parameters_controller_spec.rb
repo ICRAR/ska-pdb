@@ -18,7 +18,6 @@ describe ParametersController do
 
   describe "GET search with pagination" do
     it "should return all parameters when search criteria are empty" do
-      SearchFilter.any_instance.stub(:empty?) {true}
       ParameterDetail.stub(:search).with("test.page", "20", instance_of(SearchFilter), false) {:some_params}
 
       get :search, {:source => "", :unit => "", :description => "", :page => "test.page", :page_size => 20}

@@ -11,32 +11,6 @@ class LoadInitialDataIntoDb < ActiveRecord::Migration
     param_name
   end
 
-  #def build_search_text param_detail
-  #  text = parameter_name(param_detail)
-  #  text << param_detail.scope0.name
-  #  text << param_detail.scope1.name
-  #  text << param_detail.scope2.name
-  #  text << param_detail.scope3.name
-  #  text << param_detail.param_class.name
-  #  text << param_detail.kind.name
-  #  text << param_detail.direction.name
-  #  text << param_detail.case.name
-  #  text << param_detail.status.name
-  #  text << param_detail.value.name
-  #  text << param_detail.value_s.name
-  #  text << param_detail.value_s.name
-  #  text << 'basic' if param_detail.basic
-  #  text << 'derived' unless param_detail.basic
-  #  text << 'scalar' if param_detail.scalar
-  #  text << 'multi' unless param_detail.scalar
-  #  text << param_detail.unit
-  #  text << param_detail.description
-  #  text << param_detail.source
-  #  text << param_detail.expression
-  #  text << param_detail.notation
-  #  text
-  #end
-
   def up
     connection = ActiveRecord::Base.connection()
     File.open('db/migrate/20120827065628_seed_data.sql', 'r') do |file|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120827065628) do
+ActiveRecord::Schema.define(:version => 20120829022752) do
 
   create_table "carts", :force => true do |t|
   end
@@ -60,6 +60,11 @@ ActiveRecord::Schema.define(:version => 20120827065628) do
     t.string  "notation"
     t.string  "format"
     t.string  "lastmoddate"
+  end
+
+  create_table "parameter_indices", :force => true do |t|
+    t.integer "parameter_id"
+    t.string  "search_text",  :limit => 100000
   end
 
   create_table "parameters", :force => true do |t|
