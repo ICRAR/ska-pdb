@@ -1,5 +1,24 @@
 require 'csv'
 
+class Parameter < ActiveRecord::Base
+  has_many :parameter_details
+  belongs_to :parameter_detail
+end
+
+class ParameterDetail < ActiveRecord::Base
+  belongs_to :scope0
+  belongs_to :scope1
+  belongs_to :scope2
+  belongs_to :scope3
+  belongs_to :case
+  belongs_to :status
+  belongs_to :param_class
+  belongs_to :kind
+  belongs_to :direction
+  belongs_to :parameter
+  has_many :line_items
+end
+
 class LoadInitialDataIntoDb < ActiveRecord::Migration
   def parameter_name param_detail
     param_name = "#{param_detail.scope0.name}:"
