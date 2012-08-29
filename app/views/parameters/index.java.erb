@@ -12,21 +12,22 @@ public class BasicParam {
 
 
 <% @parameters.each do |parameter| %>
+    <% detail = parameter.parameter_detail %>
     /**
-     <%=raw "* #{parameter.description}" %>
+     <%=raw "* #{detail.description}" %>
      * <p>
-     <%=raw "* Status: \"#{parameter.status.name}\"<br/>" %>
-     <%=raw "* Unit: #{parameter.unit}<br/>" %>
-     <%=raw "* Basic : #{parameter.basic}<br/>" %>
-     <%=raw "* Scalar: #{parameter.scalar}" %>
+     <%=raw "* Status: \"#{detail.status.name}\"<br/>" %>
+     <%=raw "* Unit: #{detail.unit}<br/>" %>
+     <%=raw "* Basic : #{detail.basic}<br/>" %>
+     <%=raw "* Scalar: #{detail.scalar}" %>
      */
     @ParamMetaData (
-      <%=raw "description = \"#{parameter.description}\"," %>
-      <%=raw "source = \"#{parameter.source}\"," %>
-      <%=raw "status = \"#{parameter.status.name}\"," %>
-      <%=raw "basic = #{parameter.basic}," %>
-      <%=raw "scalar = #{parameter.scalar}," %>
-      <%=raw "unit = \"#{parameter.unit}\")" %>
-    <%=raw "public static final double #{parameter_name(parameter).upcase} = #{parameter.value}; // [#{parameter.unit}]" %>
+      <%=raw "description = \"#{detail.description}\"," %>
+      <%=raw "source = \"#{detail.source}\"," %>
+      <%=raw "status = \"#{detail.status.name}\"," %>
+      <%=raw "basic = #{detail.basic}," %>
+      <%=raw "scalar = #{detail.scalar}," %>
+      <%=raw "unit = \"#{detail.unit}\")" %>
+    <%=raw "public static final double #{parameter.name.upcase} = #{detail.value}; // [#{detail.unit}]" %>
 
 <% end %>

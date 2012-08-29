@@ -1,10 +1,11 @@
 .page-content
   .parameter-detail
-    %h2= parameter_name(@parameter)
+    - detail = @parameter.parameter_detail
+    %h2= @parameter.name
 
     %div
       = label_tag :status
-      = label_tag @parameter.status.name
+      = label_tag detail.status.name
 
     %div
       = label_tag :protected
@@ -14,32 +15,32 @@
 
     %div
       = label_tag :case
-      = label_tag @parameter.case.name
+      = label_tag detail.case.name
 
     %div
       = label_tag :kind
-      = label_tag @parameter.kind.name
+      = label_tag detail.kind.name
 
     %div
       = label_tag :param_class
-      = label_tag @parameter.param_class.name
+      = label_tag detail.param_class.name
 
     %br
 
     %div
       = label_tag :unit
-      = label_tag @parameter.unit
+      = label_tag detail.unit
 
     %div
       = label_tag :expression
-      = label_tag @parameter.expression
+      = label_tag detail.expression
 
     %div
       = label_tag :source
       %div
-        = @parameter.source
+        = detail.source
 
     %div
       = label_tag :description
       %div
-        = @parameter.description
+        = detail.description
