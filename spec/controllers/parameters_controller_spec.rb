@@ -2,41 +2,16 @@ require 'spec_helper'
 
 describe ParametersController do
   before(:each) do
-    controller.stub(:user_signed_in?).and_return false
+    controller.stub(:user_signed_in?).and_return true
   end
     
   describe "GET index" do
     it "should return all parameters" do
-      ParameterDetail.stub(:search).with("test.page", 20, false) {:some_params}
+      Parameter.stub(:paginate).with(:page => "test.page", :per_page => 20) {:some_params}
 
       get :index, {:page => "test.page"}
 
       assigns(:parameters).should == :some_params
-    end
-    
-  end
-
-  describe "GET search with pagination" do
-    it "should return all parameters when search criteria are empty" do
-      ParameterDetail.stub(:search).with("test.page", "20", instance_of(SearchFilter), false) {:some_params}
-
-      get :search, {:source => "", :unit => "", :description => "", :page => "test.page", :page_size => 20}
-
-      assigns(:parameters).should == :some_params
-      response.should render_template("index")
-    end
-
-    it "should return parameters satisfying valid search criteria" do
-      mock_filter = double('SearchFilter')
-      SearchFilter.stub(:initialize_from)
-                  .with(hash_including({"unit" => "test.unit", "description" => "test.description"}))
-                  .and_return(mock_filter)
-      ParameterDetail.stub(:search).with("test.page", 20, mock_filter, false) {:some_params}
-
-      get :search, {:page => "test.page", :unit => "test.unit", :description => "test.description"}
-
-      assigns(:parameters).should == :some_params
-      response.should render_template("index")
     end
   end
 
@@ -44,13 +19,13 @@ describe ParametersController do
    [:pdf, 'application/pdf'],
    [:java, 'text/plain']].each do |type, content_type|
     describe "#{type} export" do
+      let(:parameter_detail) { mock_model(ParameterDetail, :unit => "a", :source => "b", :expression => "c", :description => "d") }
+      let(:parameter) { mock_model(Parameter, :parameter_detail => parameter_detail) }
+
       it "return #{type} data on search" do
-        SearchFilter.any_instance.stub(:empty?) {true}
+        Parameter.stub(:paginate).with("test.page", 20) {[parameter]}
 
-        parameter = double("parameter", :unit => "", :source => "", :expression => "", :description => "")
-        ParameterDetail.stub(:search).with("test.page", 20, instance_of(SearchFilter), false) {[parameter]}
-
-        get :export, {:format => type, :source => "", :unit => "", :description => "", :page => "test.page"}
+        get :export, {:format => type, :page => "test.page"}
 
         response.header["Content-Type"].should include(content_type)
       end

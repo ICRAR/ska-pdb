@@ -17,7 +17,8 @@ class ParametersController < ApplicationController
   def search
     @cart = current_cart
     @search_text = params['text']
-    search_terms = CSV::parse_line(@search_text, :col_sep => ' ').compact
+    search_terms = CSV::parse_line(@search_text, :col_sep => ' ')
+    search_terms = [] unless search_terms
     @parameters = Parameter.full_text_search(search_terms).paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
     @parameters = Parameter.full_text_search(search_terms).public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
 

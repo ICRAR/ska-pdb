@@ -1,25 +1,22 @@
-require "rspec"
+require "spec_helper"
 require "pdf_generator"
 
 describe "PdfGenerator" do
-  generator = PdfGenerator.new
+  let(:generator) { PdfGenerator.new }
+  let(:parameter_detail) { mock_model(ParameterDetail, :unit => "a", :source => "b", :expression => "c", :description => "d") }
+  let(:parameter_detail2) { mock_model(ParameterDetail, :unit => "e", :source => "f", :expression => "g", :description => "h") }
+  let(:parameter) { mock_model(Parameter, :parameter_detail => parameter_detail) }
+  let(:parameter2) { mock_model(Parameter, :parameter_detail => parameter_detail2) }
 
   it "returns a string representation of a pdf" do
-    parameter = double("parameter", :unit => "a", :source => "b", :expression => "c", :description => "d")
-
     generator.create_pdf([parameter]).start_with?("%PDF").should == true
   end
 
   it "returns data as array with a header" do
-    parameter = double("parameter", :unit => "a", :source => "b", :expression => "c", :description => "d")
-
     generator.collect_data_into_array([parameter]).should == [["Unit", "Source", "Expression", "Description"], ["a", "b", "c", "d"]]
   end
 
   it "returns data for all the parameters provided" do
-    parameter = double("parameter", :unit => "a", :source => "b", :expression => "c", :description => "d")
-    parameter2 = double("parameter2", :unit => "e", :source => "f", :expression => "g", :description => "h")
-
     generator.collect_data_into_array([parameter, parameter2]).should == [["Unit", "Source", "Expression", "Description"], ["a", "b", "c", "d"], ["e", "f", "g", "h"]]
   end
 
