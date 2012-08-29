@@ -5,7 +5,6 @@ class ParameterIndex < ActiveRecord::Base
     search_text = build_search_text(parameter)
 
     index = ParameterIndex.find_by_parameter_id(parameter.id)
-
     return ParameterIndex.new(:parameter => parameter, :search_text => search_text) unless index
 
     index.search_text = search_text
@@ -13,7 +12,8 @@ class ParameterIndex < ActiveRecord::Base
   end
 
   def self.build_search_text parameter
-    text = parameter.name
+    text = ""
+    text << parameter.name
     param_detail = parameter.parameter_detail
     ['scope0', 'scope1', 'scope2', 'scope3', 'param_class', 'kind', 'direction', 'case', 'status'].each do |method|
       prop = param_detail.send(method)
