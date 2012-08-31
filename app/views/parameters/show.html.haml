@@ -3,44 +3,47 @@
     - detail = @parameter.parameter_detail
     %h2= @parameter.name
 
-    %div
-      = label_tag :status
-      = label_tag detail.status.name
+    %div{:style => 'display: inline-block;'}
+      %table
+        %col{:style => 'width:140px;'}
+        %col{:style => 'width:600px;'}
+        %tr
+          %td.field-name Status
+          %td= detail.status.name
 
-    %div
-      = label_tag :protected
-      = check_box_tag :protected, '', @parameter.protected, :disabled => true
+        %tr
+          %td.field-name Protected
+          %td
+            = @parameter.protected ? 'Yes' : 'No'
+
+        %tr
+          %td.field-name Case
+          %td= detail.case.name
+
+        %tr
+          %td.field-name Kind
+          %td= detail.kind.name
+
+        %tr
+          %td.field-name Class
+          %td
+            = detail.param_class.name
+
+        %tr
+          %td.field-name Unit
+          %td= detail.unit
+
+        %tr
+          %td.field-name Expression
+          %td= detail.expression
+
+        %tr
+          %td.field-name Source
+          %td= detail.source
+
+        %tr
+          %td.field-name Description
+          %td= detail.description
 
     %br
-
-    %div
-      = label_tag :case
-      = label_tag detail.case.name
-
-    %div
-      = label_tag :kind
-      = label_tag detail.kind.name
-
-    %div
-      = label_tag :param_class
-      = label_tag detail.param_class.name
-
     %br
-
-    %div
-      = label_tag :unit
-      = label_tag detail.unit
-
-    %div
-      = label_tag :expression
-      = label_tag detail.expression
-
-    %div
-      = label_tag :source
-      %div
-        = detail.source
-
-    %div
-      = label_tag :description
-      %div
-        = detail.description
