@@ -45,7 +45,7 @@
             %td
               = detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)
             %td.break-word
-              = render_text(detail.source, :search_text => @search_text)
+              = render_text(detail.source, :max_length => 240, :search_text => @search_text)
             %td.break-word
               = render_text(detail.expression, :search_text => @search_text)
             %td.break-word

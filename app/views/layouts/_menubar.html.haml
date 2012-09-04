@@ -1,5 +1,12 @@
-.search
-  = form_tag search_parameters_path, :method => :get do
-    = text_field_tag 'text', @search_text, { :placeholder => 'Search parameters ...' }
-    %input.search-reset.reset-action{:type => 'button', :value => "\u00d7" }
-    %input.search-submit{:type => 'submit'}
+%ul#menu-bar
+  %li.current
+    = link_to('Parameters', parameters_path)
+  %li
+    = link_to('Proposals', '#')
+    %ul
+      %li
+        = link_to('View all proposals', proposals_path)
+      %li
+        = link_to('View my proposals', '#')
+      %li
+        = link_to('Create new proposal', '#')

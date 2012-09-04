@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829041303) do
+ActiveRecord::Schema.define(:version => 20120903081324) do
 
   create_table "carts", :force => true do |t|
   end
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
     t.string  "notation"
     t.string  "format"
     t.string  "lastmoddate"
+    t.integer "version",                         :default => 0
   end
 
   create_table "parameter_indices", :force => true do |t|
@@ -71,6 +72,13 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
     t.string  "name"
     t.integer "parameter_detail_id"
     t.boolean "protected"
+  end
+
+  create_table "proposals", :force => true do |t|
+    t.string  "name"
+    t.integer "parameter_detail_id"
+    t.boolean "protected"
+    t.integer "user_id"
   end
 
   create_table "scope0s", :force => true do |t|

@@ -1,21 +1,10 @@
 .page-content
-  .export-section
-    %h2 Export selected
-    .selected-parameters
-      = render @cart
-
-    .export-as
-      Format:
-      - formats = {"XML" => :xml, "PDF" => :pdf, "Java" => :java}
-      = select("export_format", "", formats.collect { |label, param| [label, export_path(:format => param)] })
-    = button_to_function "Export", "window.open($('#export_format_').val(), '_blank')", { :class => 'export-button'}
-
-  #search_results.content-table
+  #proposals.content-table
     .table-pagination-before
       .page_info
-        = page_entries_info @parameters
+        = page_entries_info @proposals
       .digg_pagination
-        = will_paginate @parameters, :container => true
+        = will_paginate @proposals, :container => true
 
       %label{ :style => 'display: none;', :for => 'page_size'} Page Size
       %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
@@ -37,7 +26,7 @@
         %th Description
         %th
       %tbody
-        - @parameters.each do |p|
+        - @proposals.each do |p|
           - detail = p.parameter_detail
           %tr.parameter{:onclick =>"location.href='#{current_user && current_user.admin? ? edit_parameter_path(p) : parameter_path(p)}'"}
             %td.break-word
@@ -55,7 +44,7 @@
 
     .table-pagination-after
       .page_info
-        = page_entries_info @parameters
+        = page_entries_info @proposals
       .digg_pagination
-        = will_paginate @parameters, :container => true
+        = will_paginate @proposals, :container => true
       %div{:style => 'clear:both;'}
