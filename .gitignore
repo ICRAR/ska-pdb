@@ -7,3 +7,6 @@ features/reports/
 .sass-cache/
 *.DS_Store
 .idea
+# Ignore bundled gems and bin stubs
+vendor/bundle
+bin
