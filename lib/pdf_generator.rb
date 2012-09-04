@@ -13,7 +13,8 @@ class PdfGenerator
 		data = [["Unit", "Source", "Expression", "Description"]]
 
 		parameters.each do |p|
-			data += [[p.unit, p.source, p.expression, p.description]]
+      detail = p.parameter_detail
+			data += [[detail.unit, detail.source, detail.expression, detail.description]]
 		end
 
 		data

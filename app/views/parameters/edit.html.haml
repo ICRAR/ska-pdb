@@ -1,51 +1,53 @@
 .page-content
-  .parameter-detail
-    %h2= parameter_name(@parameter)
+  .parameter-detail.parameter-form
+    %h2= @parameter.name
 
     = form_for(@parameter) do |f|
-
-      %div
-        = f.label :status
-        = f.collection_select :status_id, Status.all, :id, :name
 
       %div
         = f.label :protected
         = f.check_box :protected
         %i{:style=>'font-size: small; color:#999'} (if checked this parameter will only be visible to authenticated users)
 
-      %br
+      = f.fields_for :parameter_detail do |df|
 
-      %div
-        = f.label :case
-        = f.collection_select :case_id, Case.all, :id, :name
+        %div
+          = df.label :status
+          = df.collection_select :status_id, Status.all, :id, :name
 
-      %div
-        = f.label :kind
-        = f.collection_select :kind_id, Kind.all, :id, :name
+        %br
 
-      %div
-        = f.label :param_class
-        = f.collection_select :param_class_id, ParamClass.all, :id, :name
+        %div
+          = df.label :case
+          = df.collection_select :case_id, Case.all, :id, :name
 
-      %br
+        %div
+          = df.label :kind
+          = df.collection_select :kind_id, Kind.all, :id, :name
 
-      %div
-        = f.label :unit
-        = f.text_field :unit
+        %div
+          = df.label :param_class
+          = df.collection_select :param_class_id, ParamClass.all, :id, :name
 
-      %div
-        = f.label :expression
-        = f.text_field :expression, :class => "wide"
+        %br
 
-      %div
-        = f.label :source
-        = f.text_area :source
+        %div
+          = df.label :unit
+          = df.text_field :unit
 
-      %div
-        = f.label :description
-        = f.text_area :description
+        %div
+          = df.label :expression
+          = df.text_field :expression, :class => "wide"
 
-      %br
+        %div
+          = df.label :source
+          = df.text_area :source
+
+        %div
+          = df.label :description
+          = df.text_area :description
+
+        %br
 
       %div
         = label_tag ""

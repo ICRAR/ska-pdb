@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120816031702) do
+ActiveRecord::Schema.define(:version => 20120829041303) do
 
   create_table "carts", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "cases", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "directions", :force => true do |t|
     t.string "name", :limit => 64
   end
 
@@ -27,32 +29,64 @@ ActiveRecord::Schema.define(:version => 20120816031702) do
   end
 
   create_table "line_items", :force => true do |t|
-    t.integer  "parameter_id"
-    t.integer  "cart_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "parameter_id"
+    t.integer "cart_id"
   end
 
   create_table "param_classes", :force => true do |t|
     t.string "name", :limit => 64
   end
 
+  create_table "parameter_details", :force => true do |t|
+    t.string  "description",    :limit => 10000
+    t.string  "unit",           :limit => 10000
+    t.string  "source",         :limit => 10000
+    t.string  "expression",     :limit => 10000
+    t.integer "param_class_id"
+    t.integer "kind_id"
+    t.integer "case_id"
+    t.integer "status_id"
+    t.integer "direction_id"
+    t.integer "parameter_id"
+    t.integer "scope0_id"
+    t.integer "scope1_id"
+    t.integer "scope2_id"
+    t.integer "scope3_id"
+    t.float   "value"
+    t.string  "value_s",        :limit => 1000
+    t.string  "value_type"
+    t.boolean "basic"
+    t.boolean "scalar"
+    t.string  "notation"
+    t.string  "format"
+    t.string  "lastmoddate"
+  end
+
+  create_table "parameter_indices", :force => true do |t|
+    t.integer "parameter_id"
+    t.string  "search_text",  :limit => 100000
+  end
+
   create_table "parameters", :force => true do |t|
-    t.string   "description",    :limit => 10000
-    t.string   "unit",           :limit => 10000
-    t.string   "source",         :limit => 10000
-    t.string   "expression",     :limit => 10000
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "param_class_id"
-    t.integer  "kind_id"
-    t.integer  "case_id"
-    t.integer  "status_id"
-    t.string   "value",          :limit => 1000
-    t.boolean  "basic"
-    t.boolean  "scalar"
-    t.string   "notation"
-    t.boolean  "protected"
+    t.string  "name"
+    t.integer "parameter_detail_id"
+    t.boolean "protected"
+  end
+
+  create_table "scope0s", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "scope1s", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "scope2s", :force => true do |t|
+    t.string "name", :limit => 64
+  end
+
+  create_table "scope3s", :force => true do |t|
+    t.string "name", :limit => 64
   end
 
   create_table "statuses", :force => true do |t|
@@ -70,8 +104,6 @@ ActiveRecord::Schema.define(:version => 20120816031702) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "admin"
     t.string   "name"
     t.string   "username"

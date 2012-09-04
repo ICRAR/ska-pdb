@@ -1,4 +1,5 @@
 require 'pdf_generator'
+require 'csv'
 
 class ParametersController < ApplicationController
   before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
@@ -7,15 +8,19 @@ class ParametersController < ApplicationController
 
   def index
     @cart = current_cart
-    @parameters = Parameter.search params[:page], get_page_size, user_signed_in?
+    @parameters = Parameter.paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
+    @parameters = Parameter.public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
 
     render :index
   end
   
   def search
     @cart = current_cart
-    @parameters = Parameter.search params[:page], get_page_size, SearchFilter.initialize_from(params), user_signed_in?
     @search_text = params['text']
+    search_terms = CSV::parse_line(@search_text, :col_sep => ' ')
+    search_terms = [] unless search_terms
+    @parameters = Parameter.full_text_search(search_terms).paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
+    @parameters = Parameter.full_text_search(search_terms).public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
 
     render :index
   end

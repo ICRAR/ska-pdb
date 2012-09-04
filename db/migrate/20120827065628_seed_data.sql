@@ -1,7 +1,28 @@
+delete from SCOPE3S;
+insert into SCOPE3S values (   0, NULL);
+
+delete from SCOPE2S;
+insert into SCOPE2S values (   0, NULL);
+
+delete from SCOPE1S;
+insert into SCOPE1S values (   0, NULL);
+insert into SCOPE1S values (   1,'DE405');
+insert into SCOPE1S values (   2,'INPOP06');
+insert into SCOPE1S values (   3,'DE410');
+
+delete from SCOPE0S;
+insert into SCOPE0S values (   0, NULL);
+insert into SCOPE0S values (   1,'Nature');
+
 delete from STATUSES;
 insert into STATUSES values (   0, NULL);
 insert into STATUSES values (   1,'CONF');
 insert into STATUSES values (   2,'TBC');
+
+delete from DIRECTIONS;
+insert into DIRECTIONS values (0, NULL);
+insert into DIRECTIONS values (1, 'AL');
+insert into DIRECTIONS values (2, 'AC');
 
 delete from CASES;
 insert into CASES values (   0, NULL);

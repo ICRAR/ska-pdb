@@ -5,7 +5,7 @@
   %tbody
     - cart.line_items.each do |item|
       %tr
-        %td{:title=>"#{parameter_name(item.parameter)}"}
-          = truncate(parameter_name(item.parameter), :length => 26)
+        %td{:title=>"#{item.parameter.name}"}
+          = truncate(item.parameter.name, :length => 26)
         %td
           = button_to "\u00d7", line_item_path(item.id), :class => 'remove-item', :method => :delete, :remote => true
