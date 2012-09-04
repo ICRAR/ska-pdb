@@ -8,6 +8,8 @@ Gaia::Application.routes.draw do
 
   resources :carts
 
+  resources :proposals
+
   root :to => "parameters#index"
   resources :parameters do
     collection do
