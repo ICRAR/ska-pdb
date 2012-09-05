@@ -4,7 +4,13 @@ class ProposalsController < ApplicationController
   helper_method :get_page_size, :get_page_sizing_path
 
   def index
-    @proposals = Proposal.paginate(:page => params[:page], :per_page => get_page_size)
+    @proposals = Proposal.by_status(ProposalStatus.review_status).paginate(:page => params[:page], :per_page => get_page_size)
+  end
+
+  def for_logged_in_user
+    @proposals = Proposal.for_user(current_user).paginate(:page => params[:page], :per_page => get_page_size)
+
+    render :index
   end
   
   private
