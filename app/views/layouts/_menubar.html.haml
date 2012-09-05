@@ -5,8 +5,12 @@
     = link_to('Proposals', '#')
     %ul
       %li
-        = link_to('View all proposals', proposals_path)
+        = link_to('View all proposals (ADMIN)', '#')
       %li
-        = link_to('View my proposals', '#')
+        = link_to('View new proposals (ADMIN)', '#')
+      %li
+        = link_to('View proposals under review', proposals_path)
+      %li
+        = link_to('View my proposals', my_proposals_path)
       %li
         = link_to('Create new proposal', '#')
