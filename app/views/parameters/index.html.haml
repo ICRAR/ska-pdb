@@ -21,7 +21,7 @@
       %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
         = options_for_select ["10", "20", "50", "100"], get_page_size
 
-    %table
+    %table#search
       %col{ :width => "12%" }
       %col{ :width => "8%" }
       %col{ :width => "20%" }
@@ -30,12 +30,13 @@
       %col{ :width => "5%" }
 
       %thead
-        %th Name
-        %th Unit
-        %th Source
-        %th Expression
-        %th Description
-        %th
+        %tr
+          %th Name
+          %th Unit
+          %th Source
+          %th Expression
+          %th Description
+          %th
       %tbody
         - @parameters.each do |p|
           - detail = p.parameter_detail
