@@ -11,10 +11,6 @@
 
       = f.fields_for :parameter_detail do |df|
 
-        %div
-          = df.label :status
-          = df.collection_select :status_id, Status.all, :id, :name
-
         %br
 
         %div

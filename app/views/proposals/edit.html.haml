@@ -1,6 +1,6 @@
 .page-content
   .parameter-detail.parameter-form
-    %h2 New proposal
+    %h2= @proposal.new_record? ? "New Proposal" : "Edit Proposal"
 
     -#X    t.integer  "status_id"
     -#X    t.string   "parameter_id"
@@ -103,4 +103,4 @@
 
       %div
         = label_tag ""
-        = f.submit "Update", :class => "pdb-button"
+        = f.submit @proposal.new_record? ? "Create" : "Update", :class => "pdb-button"
