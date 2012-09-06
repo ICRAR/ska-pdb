@@ -6,6 +6,12 @@ class ProposalsController < ApplicationController
     @proposals = Proposal.by_status(ProposalStatus.review_status).paginate(:page => params[:page], :per_page => get_page_size)
   end
 
+  def new
+    @proposal = Proposal.new
+    @proposal.user = current_user
+    render :edit
+  end
+
   def for_logged_in_user
     @proposals = Proposal.for_user(current_user).paginate(:page => params[:page], :per_page => get_page_size)
    render :index

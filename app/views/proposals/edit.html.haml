@@ -1,0 +1,106 @@
+.page-content
+  .parameter-detail.parameter-form
+    %h2 New proposal
+
+    -#X    t.integer  "status_id"
+    -#X    t.string   "parameter_id"
+
+    = form_for(@proposal) do |f|
+
+      %div
+        = f.label :name
+        = f.text_field :name, :class => "wide"
+        %a{:onclick => 'window.NewProposalController.generate_proposal_name();'} Generate
+
+      %div
+        = f.label :protected
+        = f.check_box :protected
+        %i{:style=>'font-size: small; color:#999'} (if checked this proposal will only be visible to authenticated users)
+
+
+
+      = f.fields_for :parameter_detail do |df|
+
+        %div
+          = df.label :scope0
+          = df.collection_select :scope0_id, Scope0.all, :id, :name
+
+        %div
+          = df.label :scope1
+          = df.collection_select :scope1_id, Scope1.all, :id, :name
+
+        %div
+          = df.label :scope2
+          = df.collection_select :scope2_id, Scope2.all, :id, :name
+
+        %div
+          = df.label :scope3
+          = df.collection_select :scope3_id, Scope3.all, :id, :name
+
+        %div
+          = df.label :case
+          = df.collection_select :case_id, Case.all, :id, :name
+
+        %div
+          = df.label :kind
+          = df.collection_select :kind_id, Kind.all, :id, :name
+
+        %div
+          = df.label :param_class
+          = df.collection_select :param_class_id, ParamClass.all, :id, :name
+
+        %div
+          = df.label :direction
+          = df.collection_select :direction_id, Direction.all, :id, :name
+
+        %br
+
+        %div
+          = df.label :basic
+          = df.check_box :basic
+
+        %div
+          = df.label :scalar
+          = df.check_box :scalar
+
+        %div
+          = df.label :value
+          = df.text_field :value
+
+        %div
+          = df.label :value_s
+          = df.text_field :value_s
+
+        %div
+          = df.label :value_type
+          = df.text_field :value_type
+
+        %div
+          = df.label :unit
+          = df.text_field :unit
+
+        %div
+          = df.label :notation
+          = df.text_field :notation
+
+        %div
+          = df.label :format
+          = df.text_field :format
+
+        %div
+          = df.label :expression
+          = df.text_field :expression, :class => "wide"
+
+        %div
+          = df.label :source
+          = df.text_area :source
+
+        %div
+          = df.label :description
+          = df.text_area :description
+
+        %br
+
+      %div
+        = label_tag ""
+        = f.submit "Update", :class => "pdb-button"
