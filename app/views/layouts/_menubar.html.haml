@@ -4,10 +4,9 @@
   %li
     = link_to('Proposals', '#')
     %ul
-      %li
-        = link_to('View all proposals (ADMIN)', '#')
-      %li
-        = link_to('View new proposals (ADMIN)', '#')
+      -if current_user.admin?
+        %li
+          = link_to('View new proposals', new_proposals_path)
       %li
         = link_to('View proposals under review', proposals_path)
       %li

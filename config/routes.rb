@@ -18,6 +18,7 @@ Gaia::Application.routes.draw do
   end
 
   match '/export' => 'parameters#export'
+  match '/new_proposals' => 'proposals#new_proposals'
   match '/my_proposals' => 'proposals#for_logged_in_user'
 
 end
