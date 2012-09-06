@@ -3,8 +3,7 @@ require 'csv'
 
 class ParametersController < ApplicationController
   before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
-  
-  helper_method :get_page_size, :get_page_sizing_path
+
 
   def index
     @cart = current_cart
@@ -54,21 +53,6 @@ class ParametersController < ApplicationController
       flash[:alert] = @parameter.errors.empty? ? "Unknown error: unable to save parameter" : @parameter.errors.full_messages.to_sentence
     end
     redirect_to :action => 'edit'
-  end
-  
-  private
-
-  def redirect_to_root_unless_admin
-    redirect_to root_path unless current_user && current_user.admin?
-  end
-  
-  def get_page_size
-    params[:page_size] ||= 20
-  end
-  
-  def get_page_sizing_path
-    url_for(:only_path => false) + "?" + 
-      request.query_string.gsub(/\&*page_size=[\d]*/, "").gsub(/\&*page=[\d]*/, "")
   end
   
 end
