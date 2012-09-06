@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905024819) do
+ActiveRecord::Schema.define(:version => 20120906074221) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20120905024819) do
     t.integer  "param_class_id"
     t.integer  "kind_id"
     t.integer  "case_id"
-    t.integer  "status_id"
     t.integer  "direction_id"
     t.integer  "parameter_id"
     t.integer  "scope0_id"
@@ -63,7 +62,6 @@ ActiveRecord::Schema.define(:version => 20120905024819) do
     t.boolean  "scalar"
     t.string   "notation"
     t.string   "format"
-    t.string   "lastmoddate"
     t.integer  "version",                         :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -110,10 +108,6 @@ ActiveRecord::Schema.define(:version => 20120905024819) do
 
   create_table "scope3s", :force => true do |t|
     t.string "name", :limit => 64
-  end
-
-  create_table "statuses", :force => true do |t|
-    t.string "name", :limit => 12
   end
 
   create_table "users", :force => true do |t|
