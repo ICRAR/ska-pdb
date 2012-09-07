@@ -4,7 +4,11 @@ $(document).ready ->
     $('.search form').submit()
 
   $('#search').dataTable({
-    "bPaginate": false
-    "bFilter": false
-    "bInfo": false
+    "bPaginate": true
+    "bFilter": true
+    "bInfo": true
+    "bProcessing": true
+    "bServerSide": true
+    "sPaginationType": "full_numbers"
+    "sAjaxSource": $('#search').data('source')
     })

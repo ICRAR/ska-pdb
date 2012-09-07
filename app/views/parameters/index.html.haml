@@ -21,13 +21,7 @@
       %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
         = options_for_select ["10", "20", "50", "100"], get_page_size
 
-    %table#search
-      %col{ :width => "12%" }
-      %col{ :width => "8%" }
-      %col{ :width => "20%" }
-      %col{ :width => "15%" }
-      %col{ :width => "30%" }
-      %col{ :width => "5%" }
+    %table#search{:"data-source"=>"#{parameters_url(format: "json")}"}
 
       %thead
         %tr
@@ -36,23 +30,8 @@
           %th Source
           %th Expression
           %th Description
-          %th
+
       %tbody
-        - @parameters.each do |p|
-          - detail = p.parameter_detail
-          %tr.parameter{:onclick =>"location.href='#{current_user && current_user.admin? ? edit_parameter_path(p) : parameter_path(p)}'"}
-            %td.break-word
-              = render_text(p.name, :search_text => @search_text)
-            %td
-              = detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)
-            %td.break-word
-              = render_text(detail.source, :search_text => @search_text)
-            %td.break-word
-              = render_text(detail.expression, :search_text => @search_text)
-            %td.break-word
-              = render_text(detail.description, :max_length => 500, :search_text => @search_text)
-            %td
-              = button_to 'Add', line_items_path(:parameter_id => p.id), :remote => true, :onclick => "var event = arguments[0] || window.event; event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;"
 
     .table-pagination-after
       .page_info
