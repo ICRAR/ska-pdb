@@ -1,6 +1,9 @@
 class ParametersDatatable
 
-  delegate :params, :h, :link_to, :to => :@view
+  include DisplayHelper
+  include LatexHelper
+
+  delegate :params, :h, :link_to, :raw, :truncate, :to => :@view
 
   def initialize(view, options)
     @view = view
@@ -23,12 +26,12 @@ private
     parameters.map do |p|
       detail = p.parameter_detail
       [
-        h(p.name),
-        h(detail.unit),
-        h(detail.source),
-        h(detail.expression),
-        h(detail.description),
-        "&nbsp;"
+        render_text(p.name, :search_text => @search_text),
+        detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit),
+        render_text(detail.source, :search_text => @search_text),
+        render_text(detail.expression, :search_text => @search_text),
+        render_text(detail.description, :max_length => 500, :search_text => @search_text),
+        raw("&nbsp;")
       ]
     end
   end
@@ -45,9 +48,6 @@ private
       .per_page(per_page)
     end
 
-    # if params[:sSearch].present?
-    #   products = parameters.where("name like :search or category like :search", search: "%#{params[:sSearch]}%")
-    # end
     parameters
   end
 
