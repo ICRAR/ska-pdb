@@ -68,7 +68,7 @@ private
   end
 
   def sort_column
-    columns = %w[name parameter_details.unit parameter_details.source parameter_details.expression parameter_details.description]
+    columns = %w[name parameter_details.unit parameter_details.source parameter_details.expression parameter_details.description name]
     columns[params[:iSortCol_0].to_i]
   end
 
