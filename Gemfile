@@ -5,6 +5,7 @@ gem 'will_paginate', '~> 3.0.2'
 
 gem 'haml'
 gem 'jquery-rails'
+gem 'jquery-datatables-rails'
 gem 'therubyracer', :require => 'v8'
 gem 'prawn'
 gem 'devise'

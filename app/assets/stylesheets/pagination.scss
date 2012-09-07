@@ -44,14 +44,15 @@
 	.pagination {
 		margin: 0;
 	}
-    .export {
-        float: right;
-        margin-top: -2.7em
-    }
+  .export {
+    float: right;
+    margin-top: -2.7em
+  }
 }
 
-// Styling for Datatables.net provided pagination
-#search_wrapper {
+// Datatables.net specific styling changes (over the defaults)
+
+.dataTables_wrapper {
 	.dataTables_info {
 		color: white;
 		margin: 14px 15px;
@@ -59,9 +60,21 @@
 		opacity: 0.9;
 		float: left;
 	}
+
 	.dataTables_paginate {
 		float: right;
-		text-align: right;
-		width: auto;
+		margin: 11px 15px;
+		display: inline-block;
+		background: none;
+		padding: 0;
 	}
+
 }
+
+	.datatables_wrapper {
+		clear: none;
+	}
+
+	table.datatable {
+		clear: none;
+	}
