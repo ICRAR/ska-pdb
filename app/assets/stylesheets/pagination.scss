@@ -53,6 +53,8 @@
 // Datatables.net specific styling changes (over the defaults)
 
 .dataTables_wrapper {
+	clear: none;
+
 	.dataTables_info {
 		color: white;
 		margin: 14px 15px;
@@ -69,12 +71,22 @@
 		padding: 0;
 	}
 
-}
-
-	.datatables_wrapper {
-		clear: none;
-	}
-
 	table.datatable {
 		clear: none;
+
+		td {
+			word-wrap: break-word;
+		}
 	}
+
+	.datatables_processing {
+		border: 1px solid black;
+		color: #961924;
+		background-color: white;
+		font-weight: bold;
+
+		zoom: 1;
+		filter: alpha(opacity=90);
+		opacity: 0.9;
+	}
+}
