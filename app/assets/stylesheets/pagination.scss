@@ -49,3 +49,19 @@
         margin-top: -2.7em
     }
 }
+
+// Styling for Datatables.net provided pagination
+#search_wrapper {
+	.dataTables_info {
+		color: white;
+		margin: 14px 15px;
+		font-size: 14px;
+		opacity: 0.9;
+		float: left;
+	}
+	.dataTables_paginate {
+		float: right;
+		text-align: right;
+		width: auto;
+	}
+}

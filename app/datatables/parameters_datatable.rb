@@ -27,7 +27,8 @@ private
         h(detail.unit),
         h(detail.source),
         h(detail.expression),
-        h(detail.description)
+        h(detail.description),
+        "&nbsp;"
       ]
     end
   end
@@ -37,7 +38,6 @@ private
   end
 
   def fetch_parameters
-
     parameters = exec_query do |query|
       query.joins('LEFT OUTER JOIN parameter_details ON parameters.id = parameter_details.parameter_id')
       .order("#{sort_column} #{sort_direction}")

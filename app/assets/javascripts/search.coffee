@@ -5,7 +5,7 @@ $(document).ready ->
 
   $('#search').dataTable({
     "bPaginate": true
-    "bFilter": true
+    "bFilter": false
     "bInfo": true
     "bProcessing": true
     "bServerSide": true

@@ -11,17 +11,15 @@
     = button_to_function "Export", "window.open($('#export_format_').val(), '_blank')", { :class => 'export-button'}
 
   #search_results.content-table
-    .table-pagination-before
-      .page_info
-        = page_entries_info @parameters
-      .digg_pagination
-        = will_paginate @parameters, :container => true
-
-      %label{ :style => 'display: none;', :for => 'page_size'} Page Size
-      %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
-        = options_for_select ["10", "20", "50", "100"], get_page_size
 
     %table#search{:"data-source"=>"#{parameters_url(format: "json")}"}
+
+      %col{ :width => "12%" }
+      %col{ :width => "8%" }
+      %col{ :width => "20%" }
+      %col{ :width => "15%" }
+      %col{ :width => "30%" }
+      %col{ :width => "5%" }
 
       %thead
         %tr
@@ -30,12 +28,8 @@
           %th Source
           %th Expression
           %th Description
+          %th
 
       %tbody
 
-    .table-pagination-after
-      .page_info
-        = page_entries_info @parameters
-      .digg_pagination
-        = will_paginate @parameters, :container => true
-      %div{:style => 'clear:both;'}
+    %div{:style => 'clear:both;'}
