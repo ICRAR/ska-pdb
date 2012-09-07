@@ -71,8 +71,31 @@
 		padding: 0;
 	}
 
+	.dataTables_length {
+		color: white;
+		margin: 14px 15px;
+		font-size: 14px;
+		float: left;
+
+		zoom: 1;
+		filter: alpha(opacity=90);
+		opacity: 0.9;
+	}
+
 	table.datatable {
 		clear: none;
+
+		thead {
+			color: white;
+		}
+
+		th {
+			padding: 10px;
+		}
+
+		th.sorting_asc, th.sorting_desc, th.sorting {
+			background-color: black;
+		}
 
 		td {
 			word-wrap: break-word;
