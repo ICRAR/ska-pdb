@@ -11,4 +11,6 @@ $(document).ready ->
     "bServerSide": true
     "sPaginationType": "full_numbers"
     "sAjaxSource": $('#search').data('source')
+    "fnDrawCallback": (oSettings) ->
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     })
