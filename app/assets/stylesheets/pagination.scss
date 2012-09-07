@@ -89,6 +89,14 @@
 			color: white;
 		}
 
+		tr:hover {
+    	background: #DDDDDD;
+  	}
+
+  	tr:hover td.sorting_1 {
+ 			background: #DDDDDD;
+  	}
+
 		th {
 			padding: 10px;
 		}
