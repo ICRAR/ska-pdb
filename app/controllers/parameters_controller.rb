@@ -11,12 +11,10 @@ class ParametersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        @parameters = Parameter.paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
-        @parameters = Parameter.public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
       end
-      format.json {
+      format.json do
         render json: ParametersDatatable.new(view_context, {:user_signed_in => user_signed_in?, :page_size => get_page_size})
-      }
+      end
     end
   end
 
