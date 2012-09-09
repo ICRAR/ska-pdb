@@ -12,9 +12,10 @@ $(document).ready ->
     "bServerSide": true
     "sPaginationType": "full_numbers"
     "sAjaxSource": $('#search').data('source')
+    "sDom": 'ilpfrtip'
     "oLanguage": {
       "sInfo": "Displaying Parameter <b>_START_</b> - <b>_END_</b> of <b>_TOTAL_</b> in total"
-      "sLengthMenu": "Parameters per page _MENU_"
+      "sLengthMenu": "_MENU_"
     }
     "fnDrawCallback": (oSettings) ->
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
