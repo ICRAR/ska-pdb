@@ -3,12 +3,15 @@ class ParametersDatatable
   include DisplayHelper
   include LatexHelper
 
-  delegate :params, :h, :link_to, :raw, :truncate, :button_to, :line_items_path, :to => :@view
+  delegate :params, :h, :link_to, :raw, :truncate, :button_to, :line_items_path, :hightlight, :render_text, :to => :@view
 
   def initialize(view, options)
     @view = view
-    @search_text = params['text']
     @options = options
+
+    @search = options[:search]
+    @search_text = options[:search_text]
+    @search_terms = options[:search_terms]
   end
 
   def as_json(options = {})
@@ -37,12 +40,27 @@ private
   end
 
   def parameters
-    @parameters ||= fetch_parameters
+    unless defined? @parameters
+      @parameters = @search ? search_parameters : fetch_parameters
+    end
+    @parameters
   end
 
   def fetch_parameters
     parameters = exec_query do |query|
       query.joins('LEFT OUTER JOIN parameter_details ON parameters.id = parameter_details.parameter_id')
+      .order("#{sort_column} #{sort_direction}")
+      .page(page)
+      .per_page(per_page)
+    end
+
+    parameters
+  end
+
+  def search_parameters
+    parameters = exec_query do |query|
+      query.joins('LEFT OUTER JOIN parameter_details ON parameters.id = parameter_details.parameter_id')
+      .full_text_search(@search_terms)
       .order("#{sort_column} #{sort_direction}")
       .page(page)
       .per_page(per_page)

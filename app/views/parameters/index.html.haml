@@ -12,7 +12,7 @@
 
   #search_results.content-table
 
-    %table#search{:"data-source"=>"#{parameters_url(format: "json")}"}
+    %table#search{:"data-source"=>"#{parameters_url(:text => @search_text, format: "json")}"}
 
       %col{ :width => "12%" }
       %col{ :width => "8%" }

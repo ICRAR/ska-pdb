@@ -3,34 +3,31 @@ require 'csv'
 
 class ParametersController < ApplicationController
   before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
+  before_filter :search_filter, :only => [:index, :search]
+  before_filter :cart_setup, :only => [:index, :search, :export]
 
   helper_method :get_page_size, :get_page_sizing_path
 
   def index
-    @cart = current_cart
-
     respond_to do |format|
       format.html do
       end
       format.json do
-        render json: ParametersDatatable.new(view_context, {:user_signed_in => user_signed_in?, :page_size => get_page_size})
+        render json: ParametersDatatable.new(view_context, {
+          :user_signed_in => user_signed_in?,
+          :page_size => get_page_size,
+          :search => @search,
+          :search_text => @search_text,
+          :search_terms => @search_terms })
       end
     end
   end
 
   def search
-    @cart = current_cart
-    @search_text = params['text']
-    search_terms = CSV::parse_line(@search_text, :col_sep => ' ')
-    search_terms = [] unless search_terms
-    @parameters = Parameter.full_text_search(search_terms).paginate(:page => params[:page], :per_page => get_page_size) if user_signed_in?
-    @parameters = Parameter.full_text_search(search_terms).public_parameters_only.paginate(:page => params[:page], :per_page => get_page_size) unless user_signed_in?
-
     render :index
   end
 
   def export
-    @cart = current_cart
     @parameters = @cart.line_items.map {|item| item.parameter}
 
     respond_to do |format|
@@ -73,6 +70,19 @@ class ParametersController < ApplicationController
   def get_page_sizing_path
     url_for(:only_path => false) + "?" +
       request.query_string.gsub(/\&*page_size=[\d]*/, "").gsub(/\&*page=[\d]*/, "")
+  end
+
+  def cart_setup
+    @cart = current_cart
+  end
+
+  def search_filter
+    if params['text']
+      @search = true
+      @search_text = params['text']
+      @search_terms = CSV::parse_line(@search_text, :col_sep => ' ')
+      @search_terms = [] unless @search_terms
+    end
   end
 
 end
