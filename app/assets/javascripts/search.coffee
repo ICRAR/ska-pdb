@@ -24,7 +24,7 @@ $(document).ready ->
   $('#parameter_dialog').dialog({
     autoOpen: false
     height: "auto"
-    width: 800
+    width: 880
     position: "top"
     modal: true
     title: "View Parameter"
