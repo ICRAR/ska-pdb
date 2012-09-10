@@ -18,5 +18,31 @@ $(document).ready ->
       "sLengthMenu": "_MENU_"
     }
     "fnDrawCallback": (oSettings) ->
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub])
     })
+
+  $('#parameter_dialog').dialog({
+    autoOpen: false
+    height: "auto"
+    width: 800
+    position: "top"
+    modal: true
+    title: "View Parameter"
+    buttons:
+      "Close": (event) ->
+        event.stopPropagation();
+        $('#parameter_dialog').dialog("close")
+        return false
+  })
+
+  $('.dataTable tr').live('click', (event) ->
+    if $(event.target).is('td')
+      unless $('#parameter_dialog').dialog("isOpen")
+        parameterId = $(this).find("td input[type='submit']").data('parameter-id')
+        $.get "/parameters/" + parameterId + "?for_dialog=true", (data) ->
+          $('#parameter_dialog').html data
+
+        $('#parameter_dialog').dialog("open")
+
+        return false
+  )

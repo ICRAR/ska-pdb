@@ -1,11 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc8'
+gem 'rails', '~> 3.1.0'
 gem 'will_paginate', '~> 3.0.2'
 
-gem 'haml'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails'
+
+gem 'haml'
 gem 'therubyracer', :require => 'v8'
 gem 'prawn'
 gem 'devise'
@@ -13,8 +15,8 @@ gem 'devise'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0.rc"
-  gem 'coffee-rails', "~> 3.1.0.rc"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 

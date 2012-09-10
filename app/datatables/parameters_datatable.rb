@@ -34,7 +34,7 @@ private
         render_text(detail.source, :search_text => @search_text),
         render_text(detail.expression, :search_text => @search_text),
         render_text(detail.description, :max_length => 500, :search_text => @search_text),
-        button_to('Add', line_items_path(:parameter_id => p.id), :remote => true, :onclick => "var event = arguments[0] || window.event; event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;")
+        button_to('Add', line_items_path(:parameter_id => p.id), :"data-parameter-id" => p.id, :remote => true, :onclick => "var event = arguments[0] || window.event; event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;")
       ]
     end
   end

@@ -43,6 +43,7 @@ class ParametersController < ApplicationController
 
   def show
     @parameter = Parameter.find(params[:id])
+    render :show, :layout => false if params[:for_dialog]
   end
 
   def update
