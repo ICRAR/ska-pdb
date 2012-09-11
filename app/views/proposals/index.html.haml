@@ -36,7 +36,7 @@
             %td.break-word
               = render_text(p.name, :search_text => @search_text)
             %td
-              = detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)
+              = detail.unit.nil? || detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)
             %td.break-word
               = render_text(detail.source, :max_length => 240, :search_text => @search_text)
             %td.break-word
