@@ -44,8 +44,83 @@
 	.pagination {
 		margin: 0;
 	}
-    .export {
-        float: right;
-        margin-top: -2.7em
-    }
+  .export {
+    float: right;
+    margin-top: -2.7em
+  }
+}
+
+// Datatables.net specific styling changes (over the defaults)
+
+.dataTables_wrapper {
+
+	clear: none;
+
+	.dataTables_info {
+		color: white;
+		margin: 14px 15px;
+		font-size: 14px;
+		opacity: 0.9;
+		float: left;
+		clear: none;
+	}
+
+	.dataTables_paginate {
+		float: right;
+		margin: 11px 15px;
+		display: inline-block;
+		background: none;
+		padding: 0;
+	}
+
+	.dataTables_length {
+		color: white;
+		margin: 11px 15px 13px 15px;
+		font-size: 14px;
+		float: left;
+		height: 16px;
+
+		zoom: 1;
+		filter: alpha(opacity=90);
+		opacity: 0.9;
+	}
+
+	table.datatable {
+		clear: none;
+
+		thead {
+			color: white;
+		}
+
+		tr:hover {
+    	background: #DDDDDD;
+  	}
+
+  	tr:hover td.sorting_1 {
+ 			background: #DDDDDD;
+  	}
+
+		th {
+			padding: 10px;
+		}
+
+		th.sorting_asc, th.sorting_desc, th.sorting {
+			background-color: black;
+		}
+
+		td {
+			word-wrap: break-word;
+		}
+	}
+
+	.datatables_processing {
+		border: 1px solid black;
+		color: #961924;
+		background-color: white;
+		font-weight: bold;
+
+		zoom: 1;
+		filter: alpha(opacity=90);
+		opacity: 0.9;
+	}
 }
