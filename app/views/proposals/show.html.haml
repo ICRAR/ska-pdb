@@ -1,0 +1,92 @@
+.page-content
+  .parameter-detail.parameter-form
+    - detail = @proposal.parameter_detail
+    %h2= @proposal.name
+
+    %div{:style => 'display: inline-block;'}
+      %table
+        %col{:style => 'width:140px;'}
+        %col{:style => 'width:600px;'}
+
+        %tr
+          %td.field-name Protected
+          %td= @proposal.protected ? 'Yes' : 'No'
+
+        %tr
+          %td.field-name Scope0
+          %td= detail.scope0 ? detail.scope0.name : ''
+
+        %tr
+          %td.field-name Scope1
+          %td= detail.scope1 ? detail.scope1.name : ''
+
+        %tr
+          %td.field-name Scope2
+          %td= detail.scope2 ? detail.scope2.name : ''
+
+        %tr
+          %td.field-name Scope3
+          %td= detail.scope3 ? detail.scope3.name : ''
+
+        %tr
+          %td.field-name Case
+          %td= detail.case ? detail.case.name : ''
+
+        %tr
+          %td.field-name Kind
+          %td= detail.kind ? detail.kind.name : ''
+
+        %tr
+          %td.field-name Class
+          %td= detail.param_class ? detail.param_class.name : ''
+
+        %tr
+          %td.field-name Direction
+          %td= detail.direction ? detail.direction.name : ''
+
+        %tr
+          %td.field-name Basic
+          %td= detail.basic
+
+        %tr
+          %td.field-name Scalar
+          %td= detail.scalar
+
+        %tr
+          %td.field-name value
+          %td= detail.value
+
+        %tr
+          %td.field-name Value_S
+          %td= detail.value_s
+
+        %tr
+          %td.field-name Value Type
+          %td= detail.value_type
+
+        %tr
+          %td.field-name Unit
+          %td= detail.unit
+
+        %tr
+          %td.field-name Notation
+          %td= detail.notation
+
+        %tr
+          %td.field-name Format
+          %td= detail.format
+
+        %tr
+          %td.field-name Expression
+          %td= detail.expression
+
+        %tr
+          %td.field-name Source
+          %td= detail.source
+
+        %tr
+          %td.field-name Description
+          %td= detail.description
+
+    %br
+    %br

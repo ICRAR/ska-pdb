@@ -12,6 +12,38 @@ class ProposalsController < ApplicationController
     render :edit
   end
 
+  def edit
+    @proposal = Proposal.find(params[:id])
+  end
+
+  def create
+    @proposal = Proposal.new
+    @proposal.user = current_user
+    @proposal.proposal_status = ProposalStatus.new_status
+
+    if @proposal.update_attributes(params[:proposal])
+      flash[:notice] = "Proposal created"
+    else
+      flash[:alert] = @proposal.errors.empty? ? "Unknown error: unable to create proposal" : @proposal.errors.full_messages.to_sentence
+    end
+    render :edit
+  end
+
+  def update
+    @proposal = Proposal.find(params[:id])
+
+    if @proposal.update_attributes(params[:proposal])
+      flash[:notice] = "Proposal updated"
+    else
+      flash[:alert] = @proposal.errors.empty? ? "Unknown error: unable to save proposal" : @proposal.errors.full_messages.to_sentence
+    end
+    render :edit
+  end
+
+  def show
+    @proposal = Proposal.find(params[:id])
+  end
+
   def for_logged_in_user
     @proposals = Proposal.for_user(current_user).paginate(:page => params[:page], :per_page => get_page_size)
    render :index

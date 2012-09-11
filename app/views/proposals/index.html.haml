@@ -32,7 +32,7 @@
       %tbody
         - @proposals.each do |p|
           - detail = p.parameter_detail
-          %tr.parameter{:onclick =>"location.href='#{current_user && current_user.admin? ? edit_proposal_path(p) : proposal_path(p)}'"}
+          %tr.parameter{:onclick =>"location.href='#{get_proposal_detail_path(p)}'"}
             %td.break-word
               = render_text(p.name, :search_text => @search_text)
             %td
