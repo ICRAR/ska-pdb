@@ -3,7 +3,6 @@ require 'csv'
 
 class ParametersController < ApplicationController
   before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
-
   before_filter :search_filter, :only => [:index, :search]
   before_filter :cart_setup, :only => [:index, :search, :export]
 
@@ -88,3 +87,4 @@ class ParametersController < ApplicationController
   end
 
 end
+
