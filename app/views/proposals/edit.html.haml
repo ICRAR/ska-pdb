@@ -2,9 +2,6 @@
   .parameter-detail.parameter-form
     %h2= @proposal.new_record? ? "New Proposal" : "Edit Proposal"
 
-    -#X    t.integer  "status_id"
-    -#X    t.string   "parameter_id"
-
     = form_for(@proposal) do |f|
 
       %div
@@ -15,8 +12,7 @@
       %div
         = f.label :protected
         = f.check_box :protected
-        %i{:style=>'font-size: small; color:#999'} (if checked this proposal will only be visible to authenticated users)
-
+        %i{:style=>'font-size: small; color:#999'} (if checked this parameter will only be visible to authenticated users)
 
 
       = f.fields_for :parameter_detail do |df|
@@ -101,6 +97,14 @@
 
         %br
 
+          = f.label :under_review
+          = f.check_box :under_review
+          %i{:style=>'font-size: small; color:#999'} (if checked this proposal will be visible to all authenticated users)
+
+        %br
+
       %div
-        = label_tag ""
-        = f.submit @proposal.new_record? ? "Create" : "Update", :class => "pdb-button"
+        = f.submit @proposal.new_record? ? "Create" : "Save", :class => "pdb-button"
+
+        - if current_user.admin?
+          = f.submit @proposal.new_record? ? "Create and publish" : "Save and publish", :class => "pdb-button"

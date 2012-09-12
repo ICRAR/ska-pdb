@@ -14,4 +14,12 @@ class Proposal < ActiveRecord::Base
     self.proposal_status ||= ProposalStatus.new_status
   end
 
+  def under_review
+    proposal_status == ProposalStatus.review_status
+  end
+
+  def under_review= setting
+    self.proposal_status = ProposalStatus.review_status if setting == '1'
+    self.proposal_status = ProposalStatus.new_status if setting == '0'
+  end
 end
