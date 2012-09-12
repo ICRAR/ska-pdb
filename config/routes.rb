@@ -8,6 +8,8 @@ Gaia::Application.routes.draw do
 
   resources :carts
 
+  resources :proposals
+
   root :to => "parameters#index"
   resources :parameters do
     collection do
@@ -15,6 +17,8 @@ Gaia::Application.routes.draw do
     end
   end
 
-  get '/export' => 'parameters#export'
-    
+  match '/export' => 'parameters#export'
+  match '/new_proposals' => 'proposals#new_proposals'
+  match '/my_proposals' => 'proposals#for_logged_in_user'
+
 end

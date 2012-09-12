@@ -1,0 +1,15 @@
+%ul#menu-bar
+  %li
+    = link_to('Parameters', parameters_path)
+  %li
+    = link_to('Proposals', '#')
+    %ul
+      -if current_user.admin?
+        %li
+          = link_to('New proposals', new_proposals_path)
+      %li
+        = link_to('Under review', proposals_path)
+      %li
+        = link_to('My proposals', my_proposals_path)
+      %li
+        = link_to('Create new proposal', new_proposal_path)

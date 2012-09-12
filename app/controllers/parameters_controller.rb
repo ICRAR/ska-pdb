@@ -2,7 +2,6 @@ require 'pdf_generator'
 require 'csv'
 
 class ParametersController < ApplicationController
-  before_filter :redirect_to_root_unless_admin, :only => [:edit, :update]
   before_filter :search_filter, :only => [:index, :search]
   before_filter :cart_setup, :only => [:index, :search, :export]
 
@@ -37,25 +36,9 @@ class ParametersController < ApplicationController
     end
   end
 
-  def edit
-    @parameter = Parameter.find(params[:id])
-  end
-
   def show
     @parameter = Parameter.find(params[:id])
     render :show, :layout => false if params[:for_dialog]
-  end
-
-  def update
-    @parameter = Parameter.find(params[:id])
-    @parameter.update_attributes(params[:parameter])
-
-    if @parameter.save
-      flash[:notice] = "Parameter updated"
-    else
-      flash[:alert] = @parameter.errors.empty? ? "Unknown error: unable to save parameter" : @parameter.errors.full_messages.to_sentence
-    end
-    redirect_to :action => 'edit'
   end
 
   private
@@ -87,3 +70,4 @@ class ParametersController < ApplicationController
   end
 
 end
+

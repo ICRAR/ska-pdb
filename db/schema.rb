@@ -11,9 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829041303) do
+ActiveRecord::Schema.define(:version => 20120911040616) do
 
   create_table "carts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "cases", :force => true do |t|
@@ -29,8 +31,10 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
   end
 
   create_table "line_items", :force => true do |t|
-    t.integer "parameter_id"
-    t.integer "cart_id"
+    t.integer  "parameter_id"
+    t.integer  "cart_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "param_classes", :force => true do |t|
@@ -38,28 +42,29 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
   end
 
   create_table "parameter_details", :force => true do |t|
-    t.string  "description",    :limit => 10000
-    t.string  "unit",           :limit => 10000
-    t.string  "source",         :limit => 10000
-    t.string  "expression",     :limit => 10000
-    t.integer "param_class_id"
-    t.integer "kind_id"
-    t.integer "case_id"
-    t.integer "status_id"
-    t.integer "direction_id"
-    t.integer "parameter_id"
-    t.integer "scope0_id"
-    t.integer "scope1_id"
-    t.integer "scope2_id"
-    t.integer "scope3_id"
-    t.float   "value"
-    t.string  "value_s",        :limit => 1000
-    t.string  "value_type"
-    t.boolean "basic"
-    t.boolean "scalar"
-    t.string  "notation"
-    t.string  "format"
-    t.string  "lastmoddate"
+    t.string   "description",    :limit => 10000
+    t.string   "unit",           :limit => 10000
+    t.string   "source",         :limit => 10000
+    t.string   "expression",     :limit => 10000
+    t.integer  "param_class_id"
+    t.integer  "kind_id"
+    t.integer  "case_id"
+    t.integer  "direction_id"
+    t.integer  "parameter_id"
+    t.integer  "scope0_id"
+    t.integer  "scope1_id"
+    t.integer  "scope2_id"
+    t.integer  "scope3_id"
+    t.float    "value"
+    t.string   "value_s",        :limit => 1000
+    t.string   "value_type"
+    t.boolean  "basic"
+    t.boolean  "scalar"
+    t.string   "notation"
+    t.string   "format"
+    t.integer  "version",                         :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "parameter_indices", :force => true do |t|
@@ -68,9 +73,25 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
   end
 
   create_table "parameters", :force => true do |t|
-    t.string  "name"
-    t.integer "parameter_detail_id"
-    t.boolean "protected"
+    t.string   "name"
+    t.integer  "parameter_detail_id"
+    t.boolean  "protected"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "proposal_statuses", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "proposals", :force => true do |t|
+    t.string   "name"
+    t.integer  "parameter_detail_id"
+    t.boolean  "protected"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "proposal_status_id"
   end
 
   create_table "scope0s", :force => true do |t|
@@ -89,10 +110,6 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
     t.string "name", :limit => 64
   end
 
-  create_table "statuses", :force => true do |t|
-    t.string "name", :limit => 12
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
@@ -107,6 +124,8 @@ ActiveRecord::Schema.define(:version => 20120829041303) do
     t.boolean  "admin"
     t.string   "name"
     t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

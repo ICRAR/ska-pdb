@@ -1,0 +1,60 @@
+.page-content
+  #proposals.content-table
+    .table-pagination-before
+      .page_info
+        = page_entries_info @proposals
+      .digg_pagination
+        = will_paginate @proposals, :container => true
+
+      %label{ :style => 'display: none;', :for => 'page_size'} Page Size
+      %select{ :id => "page_size", :onchange => "window.location.href = '#{get_page_sizing_path}&page_size=' + $(this).val();" }
+        = options_for_select ["10", "20", "50", "100"], get_page_size
+
+    %table
+      %col{ :width => "12%" }
+      %col{ :width => "8%" }
+      %col{ :width => "20%" }
+      %col{ :width => "15%" }
+      %col{ :width => "30%" }
+      %col{ :width => "8%" }
+      %col{ :width => "5%" }
+      %col{ :width => "8%" }
+
+      %thead
+        %th Name
+        %th Unit
+        %th Source
+        %th Expression
+        %th Description
+        %th Proposed by
+        %th Status
+        %th Created
+      %tbody
+        - @proposals.each do |p|
+          - detail = p.parameter_detail
+          %tr.parameter{:onclick =>"location.href='#{get_proposal_detail_path(p)}'"}
+            %td.break-word
+              = render_text(p.name, :search_text => @search_text)
+            %td
+              = detail.unit.nil? || detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)
+            %td.break-word
+              = render_text(detail.source, :max_length => 240, :search_text => @search_text)
+            %td.break-word
+              = render_text(detail.expression, :search_text => @search_text)
+            %td.break-word
+              = render_text(detail.description, :max_length => 500, :search_text => @search_text)
+            %td
+              =raw "#{p.user.name} (<a href='mailto:#{p.user.email}'>#{p.user.email}</a>)"
+            %td
+              = p.proposal_status.name
+            %td
+              = "#{p.created_at.strftime('%m/%d/%Y')}"
+              %br
+              = "#{distance_of_time_in_words_to_now(p.created_at)} ago"
+
+    .table-pagination-after
+      .page_info
+        = page_entries_info @proposals
+      .digg_pagination
+        = will_paginate @proposals, :container => true
+      %div{:style => 'clear:both;'}

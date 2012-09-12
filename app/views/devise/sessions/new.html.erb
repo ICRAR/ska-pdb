@@ -4,7 +4,7 @@
 
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <div><%= f.label :login, {:style => 'display:none;'} %>
-      <%= f.text_field :login, {:placeholder => 'username or email'} %></div>
+      <%= f.text_field :login, {:placeholder => 'username or email', :autofocus => 'true'} %></div>
 
       <div><%= f.label :password, {:style => 'display:none;'} %>
       <%= f.password_field :password, {:placeholder => 'password'} %></div>

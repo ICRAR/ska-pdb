@@ -15,7 +15,7 @@ class ParameterIndex < ActiveRecord::Base
     text = ""
     text << parameter.name
     param_detail = parameter.parameter_detail
-    ['scope0', 'scope1', 'scope2', 'scope3', 'param_class', 'kind', 'direction', 'case', 'status'].each do |method|
+    ['scope0', 'scope1', 'scope2', 'scope3', 'param_class', 'kind', 'direction', 'case'].each do |method|
       prop = param_detail.send(method)
       text << prop.name if prop && !prop.name.nil?
     end
