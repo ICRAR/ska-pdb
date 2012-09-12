@@ -52,9 +52,18 @@
 
 // Datatables.net specific styling changes (over the defaults)
 
+table.dataTables_wrapper {
+  clear:none;
+}
+
+table.dataTable {
+  clear:none;
+}
+
 .dataTables_wrapper {
 
-	clear: none;
+  clear: none;
+
 
 	.dataTables_info {
 		color: white;
