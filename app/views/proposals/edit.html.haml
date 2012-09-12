@@ -95,11 +95,11 @@
           = df.label :description
           = df.text_area :description
 
-        %br
-
-          = f.label :under_review
-          = f.check_box :under_review
-          %i{:style=>'font-size: small; color:#999'} (if checked this proposal will be visible to all authenticated users)
+        - if current_user.admin?
+          %br
+            = f.label :under_review
+            = f.check_box :under_review
+            %i{:style=>'font-size: small; color:#999'} (if checked this proposal will be visible to all authenticated users)
 
         %br
 
