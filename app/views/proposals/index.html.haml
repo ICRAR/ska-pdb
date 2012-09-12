@@ -28,7 +28,7 @@
         %th Description
         %th Proposed by
         %th Status
-        %th
+        %th Created
       %tbody
         - @proposals.each do |p|
           - detail = p.parameter_detail
@@ -44,7 +44,7 @@
             %td.break-word
               = render_text(detail.description, :max_length => 500, :search_text => @search_text)
             %td
-              = "#{p.user.name} (#{p.user.email})"
+              =raw "#{p.user.name} (<a href='mailto:#{p.user.email}'>#{p.user.email}</a>)"
             %td
               = p.proposal_status.name
             %td

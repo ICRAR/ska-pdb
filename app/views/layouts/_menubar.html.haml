@@ -6,10 +6,10 @@
     %ul
       -if current_user.admin?
         %li
-          = link_to('View new proposals', new_proposals_path)
+          = link_to('New proposals', new_proposals_path)
       %li
-        = link_to('View proposals under review', proposals_path)
+        = link_to('Under review', proposals_path)
       %li
-        = link_to('View my proposals', my_proposals_path)
+        = link_to('My proposals', my_proposals_path)
       %li
         = link_to('Create new proposal', new_proposal_path)

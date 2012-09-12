@@ -2,6 +2,11 @@
   .parameter-detail.parameter-form
     %h2= @proposal.new_record? ? "New Proposal" : "Edit Proposal"
 
+    - unless @proposal.new_record?
+      %div{:style => 'text-align: left;'}
+        %i{:style=>'font-size: small; color:#999'}= "proposed by #{current_user.username} on #{@proposal.created_at}"
+      %br
+
     = form_for(@proposal) do |f|
 
       %div
@@ -19,35 +24,35 @@
 
         %div
           = df.label :scope0
-          = df.collection_select :scope0_id, Scope0.all, :id, :name
+          = df.collection_select :scope0_id, Scope0.all, :id, :name, :include_blank => true
 
         %div
           = df.label :scope1
-          = df.collection_select :scope1_id, Scope1.all, :id, :name
+          = df.collection_select :scope1_id, Scope1.all, :id, :name, :include_blank => true
 
         %div
           = df.label :scope2
-          = df.collection_select :scope2_id, Scope2.all, :id, :name
+          = df.collection_select :scope2_id, Scope2.all, :id, :name, :include_blank => true
 
         %div
           = df.label :scope3
-          = df.collection_select :scope3_id, Scope3.all, :id, :name
+          = df.collection_select :scope3_id, Scope3.all, :id, :name, :include_blank => true
 
         %div
           = df.label :case
-          = df.collection_select :case_id, Case.all, :id, :name
+          = df.collection_select :case_id, Case.all, :id, :name, :include_blank => true
 
         %div
           = df.label :kind
-          = df.collection_select :kind_id, Kind.all, :id, :name
+          = df.collection_select :kind_id, Kind.all, :id, :name, :include_blank => true
 
         %div
           = df.label :param_class
-          = df.collection_select :param_class_id, ParamClass.all, :id, :name
+          = df.collection_select :param_class_id, ParamClass.all, :id, :name, :include_blank => true
 
         %div
           = df.label :direction
-          = df.collection_select :direction_id, Direction.all, :id, :name
+          = df.collection_select :direction_id, Direction.all, :id, :name, :include_blank => true
 
         %br
 
