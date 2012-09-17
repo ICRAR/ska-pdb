@@ -107,6 +107,11 @@ h1
   line-height: 38px;
 }
 
+table#search.dataTable
+{
+  float:left;
+}
+
 .search-reset
 {
   position: relative;
@@ -383,12 +388,12 @@ table
   border-radius:4px;
   border: 8px solid #961924;
   box-shadow: 0 0 12px rgba(0,0,0, 0.4);
-  width: 280px;
+  width: 400px;
 }
 
 .dialog-form-wide
 {
-  width: 460px;
+  width: 600px;
   text-align: left;
 }
 
@@ -440,6 +445,7 @@ table
 .center
 {
   text-align:center;
+  clear: both;
 }
 
 .parameter-detail
