@@ -9,11 +9,21 @@ $(document).ready ->
       "bPaginate": true
       "bFilter": false
       "bInfo": true
+      "bSortClasses": false
       "bProcessing": true
       "bServerSide": true
       "sPaginationType": "full_numbers"
       "sAjaxSource": $('#search').data('source')
       "sDom": 'Rlfrtip'
+      "aoColumns": [
+        { "mDataProp": "name" },
+        { "mDataProp": "value" },
+        { "mDataProp": "unit" },
+        { "mDataProp": "source" },
+        { "mDataProp": "expression" },
+        { "mDataProp": "description" },
+        { "mDataProp": "button" }
+      ]
       "oLanguage":
         {
         "sInfo": "Displaying Parameter <b>_START_</b> - <b>_END_</b> of <b>_TOTAL_</b> in total"

@@ -279,11 +279,12 @@ $.fn.dataTableExt.oApi.fnColReorder = function ( oSettings, iFrom, iTo )
 	 */
 
 	/* Sort listener */
-	for ( i=0, iLen=iCols ; i<iLen ; i++ )
-	{
-		$(oSettings.aoColumns[i].nTh).unbind('click');
-		this.oApi._fnSortAttachListener( oSettings, oSettings.aoColumns[i].nTh, i );
-	}
+//	for (var i=0, iLen=iCols ; i<iLen ; i++ )
+//	{
+//		$(oSettings.aoColumns[i].nTh).unbind('click');
+
+//        this.oApi._fnSortAttachListener( oSettings, oSettings.aoColumns[i].nTh, i );
+//	}
 
 
 	/* Fire an event so other plug-ins can update */

@@ -28,15 +28,22 @@ private
   def data
     parameters.map do |p|
       detail = p.parameter_detail
-      [
-        render_text(p.name, :search_text => @search_text),
-        detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit),
-        render_text(detail.source, :search_text => @search_text),
-        render_text(detail.expression, :search_text => @search_text),
-        render_text(detail.description, :max_length => 500, :search_text => @search_text),
-        button_to('Add', line_items_path(:parameter_id => p.id), :"data-parameter-id" => p.id, :remote => true)
-      ]
+      {
+        "name" => render_text(p.name, :search_text => @search_text),
+        "value" => derived_value(detail),
+        "unit" => detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit),
+        "source" => render_text(detail.source, :search_text => @search_text),
+        "expression" => render_text(detail.expression, :search_text => @search_text),
+        "description" => render_text(detail.description, :max_length => 500, :search_text => @search_text),
+        "button" => button_to('Add', line_items_path(:parameter_id => p.id), :"data-parameter-id" => p.id, :remote => true)
+      }
     end
+  end
+
+  def derived_value(detail)
+    return detail.value_s.gsub(/\%SELF\%/, detail.parameter.name)  if detail.format == '%s'
+    return detail.format % detail.value unless detail.value == 0
+    ''
   end
 
   def parameters
@@ -86,7 +93,7 @@ private
   end
 
   def sort_column
-    columns = %w[name parameter_details.unit parameter_details.source parameter_details.expression parameter_details.description name]
+    columns = %w[name parameter_details.value parameter_details.unit parameter_details.source parameter_details.expression parameter_details.description name]
     columns[params[:iSortCol_0].to_i]
   end
 
