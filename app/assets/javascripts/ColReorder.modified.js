@@ -812,11 +812,16 @@ ColReorder.prototype = {
 		{
 			this.dom.drag.removeChild( this.dom.drag.getElementsByTagName('tfoot')[0] );
 		}
+        while ( this.dom.drag.getElementsByTagName('colgroup').length > 0 )
+        {
+            this.dom.drag.removeChild( this.dom.drag.getElementsByTagName('colgroup')[0] );
+        }
 
 		$('thead tr:eq(0) th', this.dom.drag).each( function (index, element) {
             if(index != that.s.mouse.targetIndex) {
                 $(element).remove();
             }
+//            $('th:not(:eq('+that.s.mouse.targetIndex+'))', this).remove();
 		} );
 
         $('tr', this.dom.drag).height( $('tr:eq(0)', that.s.dt.nTHead).height() );
