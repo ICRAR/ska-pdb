@@ -3,36 +3,43 @@ $(document).ready ->
     $('#text').val ''
     $('.search form').submit()
 
-  $('#search').dataTable({
-     "aLengthMenu": [10, 20, 50, 100]
-    "bPaginate": true
-    "bFilter": false
-    "bInfo": true
-    "bProcessing": true
-    "bServerSide": true
-    "sPaginationType": "full_numbers"
-    "sAjaxSource": $('#search').data('source')
-    "sDom": 'ilpfrtip'
-    "oLanguage": {
-      "sInfo": "Displaying Parameter <b>_START_</b> - <b>_END_</b> of <b>_TOTAL_</b> in total"
-      "sLengthMenu": "_MENU_"
-    }
-    "fnDrawCallback": (oSettings) ->
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+  $('#search').dataTable(
+    {
+      "aLengthMenu": [10, 20, 50, 100]
+      "bPaginate": true
+      "bFilter": false
+      "bInfo": true
+      "bProcessing": true
+      "bServerSide": true
+      "sPaginationType": "full_numbers"
+      "sAjaxSource": $('#search').data('source')
+      "sDom": 'Rlfrtip'
+      "oLanguage":
+        {
+        "sInfo": "Displaying Parameter <b>_START_</b> - <b>_END_</b> of <b>_TOTAL_</b> in total"
+        "sLengthMenu": "_MENU_"
+        }
+      "fnDrawCallback": (oSettings) ->
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub])
     })
 
+  $('#reset').click ->
+    ColReorder.fnReset(oTable)
+    return false
+
   $('#parameter_dialog').dialog({
-    autoOpen: false
-    height: "auto"
-    width: 880
-    position: "top"
-    modal: true
-    title: "View Parameter"
-    buttons:
-      "Close": (event) ->
-        event.stopPropagation();
-        $('#parameter_dialog').dialog("close")
-        return false
+  autoOpen: false
+  height: "auto"
+  width: 880
+  position: "top"
+  modal: true
+  title: "View Parameter"
+  buttons:
+    "Close": (event) ->
+      event.stopPropagation()
+      ;
+      $('#parameter_dialog').dialog("close")
+      return false
   })
 
   $('.dataTable tr').live('click', (event) ->
