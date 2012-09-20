@@ -30,7 +30,4 @@ class ApplicationController < ActionController::Base
     url_for(:only_path => false) + "?" +
       request.query_string.gsub(/\&*page_size=[\d]*/, "").gsub(/\&*page=[\d]*/, "")
   end
-
-
-
 end
