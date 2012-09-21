@@ -9,4 +9,5 @@
 //= require jquery.ui.dialog
 //= require jquery.dataTables
 //= require ColReorder.modified
+//= require ColVis
 //= require_tree .

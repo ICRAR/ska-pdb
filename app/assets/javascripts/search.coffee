@@ -12,9 +12,13 @@ $(document).ready ->
       "bSortClasses": false
       "bProcessing": true
       "bServerSide": true
+      "bAutoWidth": false
       "sPaginationType": "full_numbers"
       "sAjaxSource": $('#search').data('source')
-      "sDom": 'Rlfrtip'
+      "sDom": 'C<"clear">Rlfrtip'
+      "oColVis": {
+        "aiExclude": [6]
+      }
       "aoColumns": [
         { "mDataProp": "name" },
         { "mDataProp": "value" },

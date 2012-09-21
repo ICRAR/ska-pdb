@@ -94,6 +94,16 @@ table.dataTable {
 		opacity: 0.9;
 	}
 
+    .ColVis.TableTools {
+      float: right;
+      margin: 11px 15px 13px 15px;
+
+    }
+
+    button.TableTools_Button {
+      text-align: left;
+    }
+
     .datatables_scroll {
       clear: none;
     }
