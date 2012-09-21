@@ -30,14 +30,27 @@ private
       detail = p.parameter_detail
       {
         "name" => render_text(p.name, :search_text => @search_text),
-        "value" => derived_value(detail),
-        "unit" => detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit),
+        "value" => identifyMathJax(derived_value(detail)),
+        "unit" => identifyMathJax(detail.unit.empty? ? raw("&nbsp;") : render_latex(detail.unit)),
         "source" => render_text(detail.source, :search_text => @search_text),
-        "expression" => render_text(detail.expression, :search_text => @search_text),
-        "description" => render_text(detail.description, :max_length => 500, :search_text => @search_text),
+        "expression" => identifyRelatedParameters(identifyMathJax(render_text(detail.expression, :search_text => @search_text))),
+        "description" => identifyMathJax(render_text(detail.description, :max_length => 500, :search_text => @search_text)),
         "button" => button_to('Add', line_items_path(:parameter_id => p.id), :"data-parameter-id" => p.id, :remote => true)
       }
     end
+  end
+
+  def identifyMathJax(text)
+    text = text.gsub(/((F|N)_{.*})/i, "\\(\\1\\)")
+    text = text.gsub(/[^{](\\\\lambda_?[0-9]*)/i, " \\(\\1\\) ")
+    text = text.gsub(/([0-9\.]|[snm])+(\^-?[0-9]+)/i, "\\(\\1^{\\2}\\)")
+    text = text.gsub(/([\d\.]*e)+(-?[0-9]+)/i, "\\(\\1^{\\2}\\)")
+    text
+  end
+
+  def identifyRelatedParameters(text)
+    text = text.gsub(/%(\S*)%/i, "<a href='http://localhost:3000/parameters/search?utf8=%E2%9C%93&text=Nature:\\1'>\\1</a>")
+    text
   end
 
   def derived_value(detail)
