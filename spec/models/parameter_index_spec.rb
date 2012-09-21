@@ -38,11 +38,11 @@ describe "ParameterIndex" do
     end
 
     it "should read the names from the named objects on the parameter details" do
-      [:scope0, :scope1, :scope2, :scope3, :param_class, :kind, :direction, :case, :status].each do |method|
+      [:scope0, :scope1, :scope2, :scope3, :param_class, :kind, :direction, :case].each do |method|
         parameter_detail.should_receive(method)
       end
 
-      named_object.should_receive(:name).exactly(18).times
+      named_object.should_receive(:name).exactly(16).times
 
       ParameterIndex.build_search_text(parameter)
     end

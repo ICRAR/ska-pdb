@@ -7,5 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.dialog
-//= require dataTables/jquery.dataTables
+//= require jquery.dataTables
+//= require ColReorderWithResize
+//= require ColVis
 //= require_tree .
