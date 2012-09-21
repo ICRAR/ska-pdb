@@ -8,6 +8,6 @@
 //= require jquery_ujs
 //= require jquery.ui.dialog
 //= require jquery.dataTables
-//= require ColReorder.modified
+//= require ColReorderWithResize
 //= require ColVis
 //= require_tree .
