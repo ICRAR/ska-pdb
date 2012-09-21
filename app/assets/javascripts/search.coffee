@@ -17,7 +17,8 @@ $(document).ready ->
       "sAjaxSource": $('#search').data('source')
       "sDom": 'C<"clear">Rlfrtip'
       "oColVis": {
-        "aiExclude": [6]
+        "aiExclude": [6],
+        "activate": "mouseover"
       }
       "aoColumns": [
         { "mDataProp": "name" },
@@ -28,12 +29,16 @@ $(document).ready ->
         { "mDataProp": "description" },
         { "mDataProp": "button" }
       ]
-      "oLanguage":
-        {
+      "oLanguage": {
         "sInfo": "Displaying Parameter <b>_START_</b> - <b>_END_</b> of <b>_TOTAL_</b> in total"
         "sLengthMenu": "_MENU_"
-        }
+      }
       "fnDrawCallback": (oSettings) ->
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [['%','%'], ['\\(', '\\)']]
+          }
+        })
         MathJax.Hub.Queue(["Typeset", MathJax.Hub])
     })
 
@@ -42,18 +47,19 @@ $(document).ready ->
     return false
 
   $('#parameter_dialog').dialog({
-  autoOpen: false
-  height: "auto"
-  width: 880
-  position: "top"
-  modal: true
-  title: "View Parameter"
+    autoOpen: false
+    height: "auto"
+    width: 880
+    position: "top"
+    modal: true
+    title: "View Parameter"
+
   buttons:
-    "Close": (event) ->
-      event.stopPropagation()
-      ;
-      $('#parameter_dialog').dialog("close")
-      return false
+      "Close": (event) ->
+        event.stopPropagation()
+        ;
+        $('#parameter_dialog').dialog("close")
+        return false
   })
 
   $('.dataTable tr').live('click', (event) ->
