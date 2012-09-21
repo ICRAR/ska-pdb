@@ -17,8 +17,7 @@ $(document).ready ->
       "sAjaxSource": $('#search').data('source')
       "sDom": 'C<"clear">Rlfrtip'
       "oColVis": {
-        "aiExclude": [6],
-        "activate": "mouseover"
+        "aiExclude": [6]
       }
       "aoColumns": [
         { "mDataProp": "name" },
@@ -36,7 +35,7 @@ $(document).ready ->
       "fnDrawCallback": (oSettings) ->
         MathJax.Hub.Config({
           tex2jax: {
-            inlineMath: [['%','%'], ['\\(', '\\)']]
+            inlineMath: [['\\(', '\\)']]
           }
         })
         MathJax.Hub.Queue(["Typeset", MathJax.Hub])
