@@ -8,6 +8,7 @@ gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails'
 
 gem 'haml'
+gem 'libv8', '~> 3.11.8'
 gem 'therubyracer', :require => 'v8'
 gem 'prawn'
 gem 'devise'
