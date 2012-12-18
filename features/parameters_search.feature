@@ -44,3 +44,4 @@ Feature: Search functionality
     When I navigate to the parameters page
     And I export the results as xml
     Then I should get a response with content-type "application/xml"
+

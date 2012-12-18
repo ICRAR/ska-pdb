@@ -76,12 +76,14 @@ describe ParametersController do
 
         get :export, {:format => type, :page => "test.page"}
 
+        response.status.should == 200
         response.header["Content-Type"].should include(content_type)
       end
 
       it "return #{type} data on index" do
         get :export, {:format => type}
 
+        response.status.should == 200
         response.header["Content-Type"].should include(content_type)
       end
     end

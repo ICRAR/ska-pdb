@@ -16,7 +16,6 @@ public class BasicParam {
     /**
      <%=raw "* #{detail.description}" %>
      * <p>
-     <%=raw "* Status: \"#{detail.status.name}\"<br/>" %>
      <%=raw "* Unit: #{detail.unit}<br/>" %>
      <%=raw "* Basic : #{detail.basic}<br/>" %>
      <%=raw "* Scalar: #{detail.scalar}" %>
@@ -24,7 +23,6 @@ public class BasicParam {
     @ParamMetaData (
       <%=raw "description = \"#{detail.description}\"," %>
       <%=raw "source = \"#{detail.source}\"," %>
-      <%=raw "status = \"#{detail.status.name}\"," %>
       <%=raw "basic = #{detail.basic}," %>
       <%=raw "scalar = #{detail.scalar}," %>
       <%=raw "unit = \"#{detail.unit}\")" %>
