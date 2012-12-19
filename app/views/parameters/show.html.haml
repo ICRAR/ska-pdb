@@ -15,7 +15,7 @@
 
         %tr
           %td.field-name Case
-          %td= detail.case.name
+          %td= detail.case.nil? ? "(none)" : detail.case.name
 
         %tr
           %td.field-name Kind
