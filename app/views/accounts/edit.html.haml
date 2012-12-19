@@ -3,3 +3,6 @@
     %h2 Edit Profile
     = form_for(@user, :url => account_path(@user.id)) do |f|
       = render :partial => 'account', :locals => {:edit => true, :f => f}
+    %div.center
+      %span.pdb-button
+        = link_to "Cancel", accounts_path

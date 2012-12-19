@@ -272,6 +272,10 @@ table
     line-height: 38px;
     padding: 0;
     text-decoration: none;
+  a {
+    color:white;
+    text-decoration: none;
+  }
 }
 
 .dialog-form input[type='submit']:hover,
