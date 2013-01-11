@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~> 3.1.0'
+gem 'rails', '~> 3.1.10'
 gem 'will_paginate', '~> 3.0.2'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-datatables-rails'
 
-gem 'haml'
+gem 'haml'	
 gem 'libv8', '~> 3.11.8'
 gem 'therubyracer', :require => 'v8'
 gem 'prawn'
