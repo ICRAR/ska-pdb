@@ -17,4 +17,17 @@ class Parameter < ActiveRecord::Base
     index = ParameterIndex.build_from_parameter(self)
     index.save!
   end
+
+  def value
+    parameter_detail.basic? ? parameter_detail.value : calculated_value
+  end
+
+  def calculated_value
+    parser = MathHelper::Parser.new
+    if parameter_detail.expression.nil?
+      raise "Non-basic parameter #{name} has nil expression"
+    end
+    parser.parse(parameter_detail.expression)
+  end
+
 end
