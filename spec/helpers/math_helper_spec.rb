@@ -78,7 +78,7 @@ describe "Math parsing" do
     parser = MathHelper::Parser.new
     parser.parse("pow(0, 0)").should == 1
     parser.parse("pow(12, 2)").should == 144
-#    parser.parse("pow(-19827, 3)").should == -7794190562283
+    parser.parse("pow(-19827, 3)").should == -7794190562283
     parser.parse("pow(5.25, 71)").should be_within(0.0000000001E51).of(1.3530397070E51)
   end
 
