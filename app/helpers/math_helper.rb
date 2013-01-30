@@ -11,14 +11,16 @@ module MathHelper
 
     Number = 21
     Parameter = 22
+    MathFunction = 23
 
     End = 0
 
-    attr_accessor :kind, :value
+    attr_accessor :kind, :value, :arguments
 
     def initialize
       @kind = nil
       @value = nil
+      @arguments = nil
     end
 
     def unknown?
@@ -37,6 +39,17 @@ module MathHelper
         token = Token.new
         @input.lstrip!
         case @input
+#          when /\A-?\d+(\.\d+)?/ then
+          when /\A(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/
+            token.kind = Token::Number
+            token.value = Float($&.to_f)
+          when /\A([[:alpha:]].*?)\((.*?)\)/ then
+            token.kind = Token::MathFunction
+            token.value = $1
+            token.arguments = $2
+          when /\A%([[:graph:]].*?)%/ then
+            token.kind = Token::Parameter
+            token.value = $1
           when /\A\+/ then
             token.kind = Token::Add
           when /\A-/ then
@@ -45,13 +58,6 @@ module MathHelper
             token.kind = Token::Multiply
           when /\A\// then
             token.kind = Token::Divide
-          when /\A\d+(\.\d+)?/ then
-#          when /\A-?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/
-            token.kind = Token::Number
-            token.value = Float($&.to_f)
-          when /\A%([[:graph:]].*?)%/ then
-            token.kind = Token::Parameter
-            token.value = $1
           when /\A\(/ then
             token.kind = Token::LParen
           when /\A\)/ then
@@ -140,22 +146,50 @@ module MathHelper
 
     def number
       token = @lexer.pop
+      negative = 1
+
+      if token.kind == Token::Subtract
+        token = @lexer.pop
+        negative = -1
+      end
 
       if token.kind == Token::LParen
         value = expression
-
         expected_rparen = @lexer.pop
         raise 'Unbalanced parenthesis' unless expected_rparen.kind == Token::RParen
       elsif token.kind == Token::Number
         value = token.value.to_f
+      elsif token.kind == Token::MathFunction
+        if token.value == "sqrt"
+          value = Math.sqrt(Parser.new.parse(token.arguments))
+        elsif token.value == "log10"
+          value = Math.log10(Parser.new.parse(token.arguments))
+        elsif token.value == "sin"
+          value = Math.sin(Parser.new.parse(token.arguments))
+        elsif token.value == "cos"
+          value = Math.cos(Parser.new.parse(token.arguments))
+        elsif token.value == "asin"
+          value = Math.asin(Parser.new.parse(token.arguments))
+        elsif token.value == "pow"
+          args = token.arguments.split(",", 2)
+
+          base = Parser.new.parse(args[0].strip)
+          exponent = Parser.new.parse(args[1].strip)
+          value = base.to_f ** exponent.to_f
+        else
+          raise "Unknown function: #{token.value}"
+        end
       elsif token.kind == Token::Parameter
         param = Parameter.find_by_name(token.value)
+        if param.nil?
+          raise "Referenced parameter '#{token.value}' does not exist"
+        end
         value = param.value
       else
         raise "Not a number: #{token.value}"
       end
 
-      value
+      value * negative
     end
   end
 
