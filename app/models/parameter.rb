@@ -23,11 +23,10 @@ class Parameter < ActiveRecord::Base
   end
 
   def calculated_value
-    parser = MathHelper::Parser.new
     if parameter_detail.expression.nil?
       raise "Non-basic parameter #{name} has nil expression"
     end
-    parser.parse(parameter_detail.expression)
+    MathHelper::Parser.new.parse(parameter_detail.expression)
   end
 
 end
