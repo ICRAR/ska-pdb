@@ -11,7 +11,7 @@ class AddScope05ToParameterNamesInExpressions < ActiveRecord::Migration
 
       # Replace :Nature: with Nature: and add Nature: where it does not exist
       # Note that gsub! does not work; ActiveRecord needs to see the setter invoked to mark the entity as dirty
-      detail.expression = detail.expression.gsub(/%:Nature:([[:graph:]].*?)%/, '%Nature:\1%').gsub(/%(?!Nature:)([[:graph:]:].*?)%/, '%Nature:\1%')
+      detail.expression = detail.expression.gsub(/%:Nature:([\w].*?)%/, '%Nature:\1%').gsub(/%(?!Nature:)([\w:].*?)%/, '%Nature:\1%')
 
       puts "Conversion before/after\n\t#{pre_value}\n\t#{detail.expression}"
 
