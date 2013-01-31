@@ -2,20 +2,24 @@ require "spec_helper"
 
 describe "Math parsing" do
 
-  let(:x_detail) {ParameterDetail.new expression: "1 - %Nature:Pi_Constant%", basic: false, scalar: true}
-  let(:y_detail) {ParameterDetail.new expression: "%x% * (2+%z%)", basic: false, scalar: true}
-  let(:z_detail) {ParameterDetail.new value: 8, basic: true, scalar: true}
+  let(:x_detail) { ParameterDetail.new expression: "1 - %Nature:Pi_Constant%", basic: false, scalar: true }
+  let(:y_detail) { ParameterDetail.new expression: "%x% * (2+%z%)", basic: false, scalar: true }
+  let(:z_detail) { ParameterDetail.new value: 8, basic: true, scalar: true }
+  let(:plc_J2000_detail) { ParameterDetail.new value: 5028.790, basic: true, scalar: true }
+  let(:ooe_J2000_detail) { ParameterDetail.new value: 84381.41100, basic: true, scalar: true }
 
-  let(:x_parameter) {Parameter.new name: "x", parameter_detail: x_detail}
-  let(:y_parameter) {Parameter.new name: "y", parameter_detail: y_detail}
-  let(:z_parameter) {Parameter.new name: "z", parameter_detail: z_detail}
+  let(:x_parameter) { Parameter.new name: "x", parameter_detail: x_detail }
+  let(:y_parameter) { Parameter.new name: "y", parameter_detail: y_detail }
+  let(:z_parameter) { Parameter.new name: "z", parameter_detail: z_detail }
+  let(:plc_J2000) { Parameter.new name: "Nature:PrecessionLongitude_Constant_J2000", parameter_detail: plc_J2000_detail }
+  let(:ooe_J2000) { Parameter.new name: "Nature:ObliquityOfEcliptic_J2000", parameter_detail: ooe_J2000_detail }
 
   let(:pi_detail) { ParameterDetail.new(
       :value => 3.14159265,
       :value_s => "three point one four one five nine two six five",
       :basic => true,
       :scalar => true
-  )}
+  ) }
 
   let(:pi_constant) { Parameter.new :name => 'Nature:Pi_Constant', :parameter_detail => pi_detail }
 
@@ -110,5 +114,15 @@ describe "Math parsing" do
     parser.parse("5 * %y% + 110").should be_within(0.000001).of(2.920367)
   end
 
+  it "should calculate Nature:Precession_Constant_J2000M" do
+    Parameter.should_receive(:find_by_name).with(plc_J2000.name).and_return(plc_J2000)
+    Parameter.should_receive(:find_by_name).with(ooe_J2000.name).and_return(ooe_J2000)
+    Parameter.should_receive(:find_by_name).with(pi_constant.name).and_return(pi_constant)
+    parser = MathHelper::Parser.new
+    expression = "%Nature:PrecessionLongitude_Constant_J2000% * cos(%Nature:Pi_Constant% * %Nature:ObliquityOfEcliptic_J2000% / (180 * 3600)) / (15 * 100)"
+    approximated_value = parser.parse(expression)
+
+#    approximated_value.should be_within(0.00001).of
+  end
 
 end

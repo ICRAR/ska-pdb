@@ -36,6 +36,7 @@ module MathHelper
       @idx = 0
 
       while '' != @input
+        custom_matching = false
         token = Token.new
         @input.lstrip!
         case @input
@@ -43,10 +44,24 @@ module MathHelper
           when /\A(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/
             token.kind = Token::Number
             token.value = Float($&.to_f)
-          when /\A([[:alpha:]].*?)\((.*?)\)/ then
+          when /\A([[:alpha:]].*?)\(/ then
             token.kind = Token::MathFunction
             token.value = $1
-            token.arguments = $2
+
+            paren = 0
+            i = $1.length
+            start = i+1
+
+            loop do
+              paren += 1 if @input[i] == '('
+              paren -= 1 if @input[i] == ')'
+              break if paren == 0
+              i += 1
+            end
+
+            token.arguments = @input[start..i-1]
+            @input = @input[i+1..-1]
+            custom_matching = true
           when /\A%([[:graph:]].*?)%/ then
             token.kind = Token::Parameter
             token.value = $1
@@ -64,7 +79,7 @@ module MathHelper
             token.kind = Token::RParen
         end
         raise "Unknown token: #{@input}" if token.unknown?
-        @input = $'
+        @input = $' unless custom_matching
         @output << token
       end
       token = Token.new
@@ -88,15 +103,19 @@ module MathHelper
 
       @lexer = Lexer.new(input)
 
-      expression_value = expression
-      token = @lexer.pop
-      if token.kind == Token::End
+      begin
+        expression_value = expression
+
+        token = @lexer.pop
+        if token.kind != Token::End
+          raise "Unterminated expression"
+        end
+
         expression_value
-      else
-        raise "Unterminated expression"
+      rescue Exception => e
+        raise "\n\tUnable to parse '#{input}': #{e}"
       end
 
-      expression_value
     end
 
     protected
@@ -184,7 +203,11 @@ module MathHelper
         if param.nil?
           raise "Referenced parameter '#{token.value}' does not exist"
         end
+        begin
         value = param.value
+        rescue Exception => e
+          raise "\n\tParameter '#{param.name}' cannot be evaluated: #{e}"
+        end
       else
         raise "Not a number: #{token.value}"
       end

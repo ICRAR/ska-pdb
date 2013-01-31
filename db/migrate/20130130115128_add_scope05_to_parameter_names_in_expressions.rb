@@ -17,7 +17,6 @@ class AddScope05ToParameterNamesInExpressions < ActiveRecord::Migration
 
       detail.save!
     end
-
   end
 
   def down
