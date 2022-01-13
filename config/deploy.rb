@@ -9,8 +9,8 @@ require 'capistrano/ext/multistage'
 
 set :application, "gaia"
 set :scm, :git
-set :repository, "git://github.com/ICRAR/gaia-pdb.git"
-set :deploy_to, "/var/www/gaia"
+set :repository, "git://github.com/ICRAR/ska-pdb.git"
+set :deploy_to, "/var/www/ska"
 
 set :deploy_via, :copy
 set :copy_cache, true
