@@ -1,3 +1,5 @@
-Current working version of this code can be viewed at: http:\\ska-pdb.herokuapp.com
+This is a proof-of-concept version of a SKA Parameter DB system based on the GAIA PdB.
 
-Issues are tracked on Trello: https://trello.com/b/b1XvA9Vs
+Current working version of this code can be run in docker 
+
+docker run -p 3000:3000 icrar/ska-pdb:latest
