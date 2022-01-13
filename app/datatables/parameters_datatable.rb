@@ -49,7 +49,7 @@ private
   end
 
   def identifyRelatedParameters(text)
-    text = text.gsub(/%(\S*)%/i, "<a href='http://localhost:3000/parameters/search?utf8=%E2%9C%93&text=Nature:\\1'>\\1</a>")
+    text = text.gsub(/%(\S*)%/i, "<a href='http://localhost:3000/parameters/search?utf8=%E2%9C%93&text=\\1'>\\1</a>")
     text
   end
 
